@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const PersonalizedMeals = () => {
   return (
-    <div className="text-center flex flex-col gap-8 text-8xl font-semibold h-[1000px] text-white items-center justify-center backdrop-blur-[2px] relative">
+    <div className="text-center flex flex-col gap-12 text-8xl font-semibold h-[1000px] text-white items-center justify-center backdrop-blur-[2px] relative uppercase tracking-tight">
       <Image
         src={paper}
         alt="Paper Design"
