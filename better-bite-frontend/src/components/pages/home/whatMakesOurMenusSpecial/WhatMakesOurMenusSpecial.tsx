@@ -35,16 +35,21 @@ const WhatMakesOurMenusSpecial = () => {
   ];
   return (
     <div
-      className="relative bg-white"
-      style={{
-        backgroundImage: `url(${specialImgBg.src})`,
-        backgroundRepeat: "repeat",
-        backgroundSize: "cover",
-        position: "relative",
-      }}
+      className="relative bg-white overflow-hidden"
+      // style={{
+      //   backgroundImage: `url(${specialImgBg.src})`,
+      //   backgroundRepeat: "repeat",
+      //   backgroundSize: "cover",
+      //   position: "relative",
+      // }}
     >
-      <div className="container ">
+      <div className="container">
         <div className="flex flex-col lg:flex-row justify-center w-full items-center gap-16  lg:h-[870px]">
+          <Image
+            src={specialImgBg}
+            alt="Special Menus Banner"
+            className="w-full h-full object-cover absolute top-0 left-0 z-0"
+          />
           <Image className="xl:w-[40%]" src={specialImg} alt="specialImg" />
 
           <div>
