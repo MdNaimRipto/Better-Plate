@@ -1,6 +1,5 @@
 import cuisinesImage from "@/assets/perfectMealPlan/middle-img.webp";
 import Image from "next/image";
-import paper from "@/assets/paper.webp";
 
 const PerfectMealPlan = () => {
   interface IPlans {
