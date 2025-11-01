@@ -4,6 +4,8 @@ import PerfectMealPlan from "./perfectMealPlan/PerfectMealPlan";
 import bg from "@/assets/home-bg.jpg";
 import PersonalizedMeals from "./personalizedMeals/PersonalizedMeals";
 import WhatMakesOurMenusSpecial from "./whatMakesOurMenusSpecial/WhatMakesOurMenusSpecial";
+import SimpleAndDeliciousFood from "./simpleAndDeliciousFood/SimpleAndDeliciousFood";
+import OurFlavorfulMenus from "./ourFlavorfulMenus/OurFlavorfulMenus";
 
 const HomeMain = () => {
   return (
@@ -19,6 +21,8 @@ const HomeMain = () => {
       <PerfectMealPlan />
       <PersonalizedMeals />
       <WhatMakesOurMenusSpecial />
+      <SimpleAndDeliciousFood />
+      <OurFlavorfulMenus />
       <div className="bg-white h-screen"></div>
     </div>
   );
