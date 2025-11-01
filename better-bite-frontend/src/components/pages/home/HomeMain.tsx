@@ -25,7 +25,6 @@ const HomeMain = () => {
       <WhatMakesOurMenusSpecial />
       <SimpleAndDeliciousFood />
       <OurFlavorfulMenus />
-      <div className="bg-white h-screen"></div>
     </div>
   );
 };

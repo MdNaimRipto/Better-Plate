@@ -5,14 +5,19 @@ import Image from "next/image";
 const SimpleAndDeliciousFood = () => {
   return (
     <div
-      className="relative h-[600px] py-32"
-      style={{
-        backgroundImage: `linear-gradient(#00000010, #00000010), url(${banner.src})`,
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-      }}
+      className="relative h-[800px] overflow-hidden"
+      // style={{
+      //   backgroundImage: `linear-gradient(#00000010, #00000010), url(${banner.src})`,
+      //   backgroundPosition: "center",
+      //   backgroundRepeat: "no-repeat",
+      //   backgroundSize: "cover",
+      // }}
     >
+      <Image
+        src={banner}
+        alt="Discount Banner"
+        className="w-full h-full object-cover absolute top-0 left-0 -z-20 brightness-90"
+      />
       <div className="container flex items-center justify-center h-full text-center">
         <div>
           <p className="text-xl font-semibold text-black mb-5">
@@ -32,12 +37,12 @@ const SimpleAndDeliciousFood = () => {
       <Image
         src={paper}
         alt="Paper Design"
-        className=" w-full z-50 absolute -top-[40px] hidden md:block"
+        className=" w-full -z-10 absolute -top-[40px] 2xl:-top-[40px] hidden md:block"
       />
       <Image
         src={paper}
         alt="Paper Design"
-        className=" w-full z-50 absolute -bottom-[40px] hidden md:block"
+        className=" w-full z-50 absolute -bottom-[40px] 2xl:-bottom-[80px] hidden md:block"
       />
     </div>
   );
