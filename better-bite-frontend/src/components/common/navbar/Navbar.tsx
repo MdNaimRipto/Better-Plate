@@ -31,14 +31,13 @@ const Navbar = () => {
     };
   }, []);
 
-  const isHomePage = pathname === "/en" || pathname === "/ar";
+  const isHomePage =
+    pathname === "/en" || pathname === "/ar" || pathname === "/";
 
   return (
     <div
       className={`absolute z-50 top-0 left-0 w-full ${
-        isHomePage && !isScrolled
-          ? "bg-white/0"
-          : "bg-white/80 backdrop-blur-2xl"
+        isHomePage ? "bg-white/0" : "bg-white/80 backdrop-blur-2xl"
       } duration-700`}
     >
       <div

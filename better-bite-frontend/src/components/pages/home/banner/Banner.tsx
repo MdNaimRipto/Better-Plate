@@ -1,52 +1,36 @@
-import banner01 from "@/assets/banner/banner01.jpg";
-import ScrollAnimation from "@/components/animation/ScrollAnimation";
-import OpacityTransition from "@/components/animation/OpacityTransition";
-import TranslatedText from "@/components/common/language/TranslatedText";
-import PlansLink from "./PlansLink";
+import paper from "@/assets/paper.webp";
+import Image from "next/image";
 
 const Banner = () => {
-  const banner = {
-    videoSrc: "https://travel-buddy-demo.vercel.app/videos/Banner001.mp4",
-    img: banner01.src,
-    title: "Explore the Serenity of the Mountains",
-  };
-
   return (
-    <div className="relative z-20 overflow-hidden px-4 h-screen pt-4">
-      <div
-        className={`absolute w-full h-full top-0 left-0 transition-opacity duration-[2.5s] ease-in-out`}
-      >
-        <video
-          poster={banner.img}
-          src={banner.videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className={`w-full bg-lightGray h-full object-cover absolute z-0 brightness-[.65]`}
-          preload="metadata"
-        />
-        <OpacityTransition>
-          <div className="z-10 w-full container flex flex-col items-center justify-center h-full lg:h-4/5 pt-40 md:pt-[50px] lg:pt-96">
-            <ScrollAnimation>
-              <div
-                className={`bg-white/80 backdrop-blur-2xl flex flex-col md:flex-row items-center justify-center gap-8 py-12 relative mt-24`}
-              >
-                <p className="text-primary flex items-center justify-center gap-2">
-                  <span className="text-4xl xl:text-5xl font-bold">10 M</span>
-                  <span className="text-4xl xl:text-5xl font-bold mb-1">+</span>
-                  <span className="text-lg font-bold mt-1 xl:mt-2">
-                    <TranslatedText en="Meal Served" ban="وجبة مقدمة" />
-                  </span>
-                </p>
-                <PlansLink />
-              </div>
-            </ScrollAnimation>
-          </div>
-        </OpacityTransition>
+    <div className="relative flex flex-col items-center justify-center text-white gap-7 h-screen w-full backdrop-blur-[2px]">
+      <div className="flex items-center justify-center w-full gap-3">
+        <CommonLineDesign />
+        <h1 className="text-8xl font-extralight text-white">Taste Redefined</h1>
+        <CommonLineDesign />
       </div>
+      <p className="font-extralight text-lg">
+        Smokin’ Up a Storm, One Bite at a Time
+      </p>
+      <button className="cursor-pointer border border-white px-5 py-3">
+        View Full Menu
+      </button>
+      <Image
+        src={paper}
+        alt="Paper Design"
+        className=" w-full z-50 absolute -bottom-[100px] hidden md:block"
+      />
     </div>
   );
 };
 
 export default Banner;
+
+const CommonLineDesign = () => {
+  return (
+    <span className="flex flex-col gap-[8px]">
+      <span className="block w-36 h-[1px] bg-white" />
+      <span className="block w-36 h-[1px] bg-white" />
+    </span>
+  );
+};
