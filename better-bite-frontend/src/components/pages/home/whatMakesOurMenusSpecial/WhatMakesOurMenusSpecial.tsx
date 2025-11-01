@@ -5,7 +5,6 @@ import icon_7 from "@/assets/icons/icon-7.png";
 import icon_8 from "@/assets/icons/icon-8.png";
 import icon_9 from "@/assets/icons/icon-9.webp";
 import icon_10 from "@/assets/icons/icon-10.png";
-import paper from "@/assets/Common/paper-design.webp";
 
 const WhatMakesOurMenusSpecial = () => {
   const specialMenus = [
@@ -44,14 +43,8 @@ const WhatMakesOurMenusSpecial = () => {
         position: "relative",
       }}
     >
-      <Image
-        src={paper}
-        alt="Paper Design"
-        className=" w-full z-50 absolute  hidden md:block"
-      />
-
       <div className="container ">
-        <div className="flex flex-col lg:flex-row justify-center w-full items-center gap-16 my-20 lg:h-[870px]">
+        <div className="flex flex-col lg:flex-row justify-center w-full items-center gap-16  lg:h-[870px]">
           <Image className="xl:w-[40%]" src={specialImg} alt="specialImg" />
 
           <div>
@@ -81,12 +74,6 @@ const WhatMakesOurMenusSpecial = () => {
           </div>
         </div>
       </div>
-
-      <Image
-        src={paper}
-        alt="Paper Design"
-        className=" w-full z-50 absolute -bottom-[135px] hidden md:block"
-      />
     </div>
   );
 };
