@@ -11,7 +11,6 @@ import fImg9 from "@/assets/flavorful_menu/9.jpg";
 import fImg10 from "@/assets/flavorful_menu/10.jpg";
 import fImg11 from "@/assets/flavorful_menu/11.jpg";
 import fImg12 from "@/assets/flavorful_menu/12.jpg";
-import paper from "@/assets/Common/paper-design.webp";
 
 const OurFlavorfulMenus = () => {
   const fMenus = [
@@ -140,11 +139,6 @@ const OurFlavorfulMenus = () => {
           ))}
         </div>
       </div>
-      <Image
-        src={paper}
-        alt="Paper Design"
-        className=" w-full z-50 absolute -bottom-[135px] hidden md:block"
-      />
     </div>
   );
 };

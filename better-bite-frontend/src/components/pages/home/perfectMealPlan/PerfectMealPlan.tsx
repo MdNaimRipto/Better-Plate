@@ -6,6 +6,9 @@ const PerfectMealPlan = () => {
     title: string;
     description: string;
     image: string;
+    protein: number;
+    carbs: number;
+    fat: number;
   }
 
   const plans: IPlans[] = [
@@ -14,36 +17,54 @@ const PerfectMealPlan = () => {
       description:
         "Power-packed meals loaded with protein to build strength and support recovery.",
       image: "🍖",
+      protein: 50,
+      carbs: 40,
+      fat: 20,
     },
     {
       title: "Balanced",
       description:
         "Smartly balanced dishes combining protein, carbs, and fats for steady energy.",
       image: "⚖️",
+      protein: 35,
+      carbs: 55,
+      fat: 30,
     },
     {
       title: "Vegetarian",
       description:
         "Wholesome, plant-based meals rich in fiber, flavor, and essential nutrients.",
       image: "🥦",
+      protein: 25,
+      carbs: 55,
+      fat: 30,
     },
     {
       title: "Chef's Picks",
       description:
         "Exclusive creations from our chefs, crafted for taste and complete nutrition.",
       image: "🧑‍🍳",
+      protein: 35,
+      carbs: 55,
+      fat: 30,
     },
     {
       title: "Low Carbs",
       description:
         "Delicious, low-carb recipes to fuel your goals without excess calories.",
       image: "🥑",
+      protein: 35,
+      carbs: 20,
+      fat: 50,
     },
     {
       title: "Custom Macros",
       description:
         "Meals customized to your macros, helping you stay precise and consistent.",
       image: "🏋️",
+      protein: 53,
+      carbs: 38,
+      fat: 29,
     },
   ];
 
@@ -73,8 +94,22 @@ const PerfectMealPlan = () => {
                     <a href="" className="text-xl font-bold text-primary">
                       {cuisine.title}
                     </a>
-                    <p className="mt-2.5 text-base text-gray">
+                    <p className="mt-2.5 text-sm leading-6 text-gray">
                       {cuisine.description}
+                    </p>
+                    <p className="flex items-center justify-end gap-4 mt-3 text-xs">
+                      <span className="flex items-center gap-1.5">
+                        <CommonDot bg="bg-success" />
+                        <span>{cuisine.protein}% Protein</span>
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <CommonDot bg="bg-secondary" />
+                        <span>{cuisine.carbs}% Carb</span>
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <CommonDot bg="bg-primary/80" />
+                        <span>{cuisine.fat}% Fat</span>
+                      </span>
                     </p>
                   </div>
                   <span className="text-4xl w-[50px] h-[50px] block mt-2">
@@ -110,13 +145,32 @@ const PerfectMealPlan = () => {
                     <a href="" className="text-xl font-bold text-primary">
                       {cuisine.title}
                     </a>
-                    <p className="mt-2.5 text-base text-gray">
+                    <p className="mt-2.5 text-sm leading-6 text-gray">
                       {cuisine.description}
+                    </p>
+                    <p className="flex items-center gap-4 mt-3 text-xs">
+                      <span className="flex items-center gap-1.5">
+                        <CommonDot bg="bg-success" />
+                        <span>{cuisine.protein}% Protein</span>
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <CommonDot bg="bg-secondary" />
+                        <span>{cuisine.carbs}% Carb</span>
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <CommonDot bg="bg-primary/80" />
+                        <span>{cuisine.fat}% Fat</span>
+                      </span>
                     </p>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+          <div className="flex justify-center mt-12 -mb-6">
+            <button className="border border-primary text-primary cursor-pointer px-6 py-3 hover:text-white hover:bg-primary duration-300">
+              View all plans
+            </button>
           </div>
         </div>
       </div>
@@ -125,3 +179,7 @@ const PerfectMealPlan = () => {
 };
 
 export default PerfectMealPlan;
+
+const CommonDot = ({ bg }: { bg: string }) => {
+  return <span className={`w-2 h-2 rounded-full block ${bg}`} />;
+};
