@@ -3,6 +3,7 @@ import Banner from "./banner/Banner";
 import PerfectMealPlan from "./perfectMealPlan/PerfectMealPlan";
 import bg from "@/assets/home-bg.jpg";
 import PersonalizedMeals from "./personalizedMeals/PersonalizedMeals";
+import WhatMakesOurMenusSpecial from "./whatMakesOurMenusSpecial/WhatMakesOurMenusSpecial";
 
 const HomeMain = () => {
   return (
@@ -17,6 +18,7 @@ const HomeMain = () => {
       <Banner />
       <PerfectMealPlan />
       <PersonalizedMeals />
+      <WhatMakesOurMenusSpecial />
       <div className="bg-white h-screen"></div>
     </div>
   );
