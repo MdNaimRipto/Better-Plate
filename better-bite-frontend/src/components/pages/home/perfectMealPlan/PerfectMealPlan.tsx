@@ -115,11 +115,6 @@ const PerfectMealPlan = () => {
                   <span className="text-4xl w-[50px] h-[50px] block mt-2">
                     {cuisine.image}
                   </span>
-                  {/* <Image
-                    className=" w-[50px] h-[50px]"
-                    src={cuisine.image}
-                    alt=""
-                  /> */}
                 </div>
               ))}
             </div>
@@ -133,11 +128,6 @@ const PerfectMealPlan = () => {
             <div className="text-left space-y-10 lg:w-[33%] w-full order-2 md:order-none">
               {plans.slice(3, 6).map((cuisine, index) => (
                 <div key={index} className="flex gap-5 ">
-                  {/* <Image
-                    className=" w-[50px] h-[50px]"
-                    src={cuisine.image}
-                    alt=""
-                  /> */}
                   <span className="text-4xl w-[50px] h-[50px] block mt-2">
                     {cuisine.image}
                   </span>

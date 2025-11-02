@@ -4,15 +4,7 @@ import Image from "next/image";
 
 const SimpleAndDeliciousFood = () => {
   return (
-    <div
-      className="relative h-[800px] overflow-hidden"
-      // style={{
-      //   backgroundImage: `linear-gradient(#00000010, #00000010), url(${banner.src})`,
-      //   backgroundPosition: "center",
-      //   backgroundRepeat: "no-repeat",
-      //   backgroundSize: "cover",
-      // }}
-    >
+    <div className="relative h-[800px] overflow-hidden">
       <Image
         src={banner}
         alt="Discount Banner"
@@ -37,7 +29,7 @@ const SimpleAndDeliciousFood = () => {
       <Image
         src={paper}
         alt="Paper Design"
-        className=" w-full -z-10 absolute -top-[40px] 2xl:-top-[40px] hidden md:block"
+        className=" w-full -z-10 absolute -top-[40px] 2xl:-top-[80px] hidden md:block"
       />
       <Image
         src={paper}
