@@ -1,7 +1,12 @@
+"use client";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import img1 from "@/assets/howItWorks/app.jpg";
 import img2 from "@/assets/howItWorks/chef.jpg";
 import img3 from "@/assets/howItWorks/leanna-myers-YB9VU4necQo-unsplash.jpg";
-import Image from "next/image";
+import { Autoplay } from "swiper/modules";
+
 const HowItWorks = () => {
   const infos = [
     {
@@ -26,29 +31,50 @@ const HowItWorks = () => {
       <div className="container py-16">
         <div className="flex flex-col items-center justify-center gap-3 mb-5">
           <h4 className="text-4xl font-semibold text-black">How it works</h4>
-          <p className="text-black">
+          <p className="text-black text-center">
             Hit your health goals effortlessly with 3 simple steps
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-0">
+
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{ delay: 3500, disableOnInteraction: false }}
+          pagination={false}
+          breakpoints={{
+            768: { slidesPerView: 2, spaceBetween: 0 },
+            1024: { slidesPerView: 3, spaceBetween: 0 },
+          }}
+          speed={1500}
+          className="w-full"
+        >
           {infos.map((info, i) => (
-            <div key={i}>
-              <div className="relative w-[400px] h-[400px] overflow-hidden rounded-3xl">
-                <span className="absolute w-[60px] h-[60px] flex items-center justify-center  top-0 left-0 bg-white rounded-full z-50">
+            <SwiperSlide key={i} className="flex justify-center">
+              <div className="relative w-full xl:w-[400px] h-[350px] xl:h-[400px] overflow-hidden rounded-3xl">
+                <span className="absolute w-[60px] h-[60px] flex items-center justify-center top-3 md:top-0 left-3 md:left-0 bg-white rounded-full z-50">
                   <span className="bg-primary text-white w-[80%] h-[80%] rounded-full flex items-center justify-center text-xl">
                     {i + 1}
                   </span>
                 </span>
                 <Image
                   src={info.img}
-                  alt="banner"
-                  className="rounded-[50px] p-6 w-full h-full object-cover brightness-90 absolute z-0"
+                  alt={info.title}
+                  className="rounded-[36px] md:rounded-[50px] md:p-6 w-full h-full object-cover brightness-90 absolute z-0"
                 />
               </div>
-            </div>
+              <div className="text-center mt-6 max-w-[350px]">
+                <h5 className="text-xl font-semibold text-black">
+                  {info.title}
+                </h5>
+                <p className="text-black text-sm mt-2">{info.desc}</p>
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
-        <div className="flex justify-center mt-4">
+        </Swiper>
+
+        <div className="flex justify-center mt-8">
           <button className="border border-primary text-primary cursor-pointer px-6 py-3 hover:text-white hover:bg-primary duration-300">
             View all plans
           </button>

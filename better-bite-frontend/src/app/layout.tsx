@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../styles/globals.css";
+import "swiper/css";
+import "swiper/css/pagination";
 import ScrollToTopButton from "@/components/common/ScrollToTop";
 
 const poppins = Poppins({

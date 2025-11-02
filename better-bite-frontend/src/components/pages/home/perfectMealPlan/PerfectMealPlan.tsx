@@ -82,22 +82,22 @@ const PerfectMealPlan = () => {
             </h6>
           </div>
 
-          <div className="flex lg:flex-row md:flex-row-reverse flex-wrap justify-between items-center gap-4">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
             {/* left menus */}
-            <div className=" md:text-right space-y-10 lg:w-[33%] w-full md:w-1/2 order-1 md:order-none">
+            <div className=" lg:text-right space-y-10 lg:w-[33%] w-full order-1 lg:order-none">
               {plans.slice(0, 3).map((cuisine, index) => (
-                <div
-                  key={index}
-                  className="md:flex-row flex-row-reverse flex gap-5 "
-                >
+                <div key={index} className="lg:flex-row flex gap-5">
+                  <span className="text-4xl w-[50px] h-[50px] block lg:hidden mt-2">
+                    {cuisine.image}
+                  </span>
                   <div>
                     <a href="" className="text-xl font-bold text-primary">
                       {cuisine.title}
                     </a>
-                    <p className="mt-2.5 text-sm leading-6 text-gray">
+                    <p className="mt-2.5 text-xs lg:text-[10px] xl:text-sm leading-5 xl:leading-6 text-gray">
                       {cuisine.description}
                     </p>
-                    <p className="flex items-center justify-end gap-4 mt-3 text-xs">
+                    <p className="flex items-center justify-start lg:justify-end gap-3 md:gap-4 mt-3 text-[10px] xl:text-xs">
                       <span className="flex items-center gap-1.5">
                         <CommonDot bg="bg-success" />
                         <span>{cuisine.protein}% Protein</span>
@@ -112,7 +112,7 @@ const PerfectMealPlan = () => {
                       </span>
                     </p>
                   </div>
-                  <span className="text-4xl w-[50px] h-[50px] block mt-2">
+                  <span className="hidden lg:block text-4xl w-[50px] h-[50px] mt-2">
                     {cuisine.image}
                   </span>
                 </div>
@@ -125,7 +125,7 @@ const PerfectMealPlan = () => {
             </div>
 
             {/* Right menus */}
-            <div className="text-left space-y-10 lg:w-[33%] w-full order-2 md:order-none">
+            <div className="text-left space-y-10 lg:w-[33%] w-full order-2 lg:order-none mt-[24px] lg:mt-0">
               {plans.slice(3, 6).map((cuisine, index) => (
                 <div key={index} className="flex gap-5 ">
                   <span className="text-4xl w-[50px] h-[50px] block mt-2">
@@ -135,10 +135,10 @@ const PerfectMealPlan = () => {
                     <a href="" className="text-xl font-bold text-primary">
                       {cuisine.title}
                     </a>
-                    <p className="mt-2.5 text-sm leading-6 text-gray">
+                    <p className="mt-2.5 text-xs lg:text-[10px] xl:text-sm leading-5 xl:leading-6 text-gray">
                       {cuisine.description}
                     </p>
-                    <p className="flex items-center gap-4 mt-3 text-xs">
+                    <p className="flex items-center gap-3 md:gap-4 mt-3 text-[10px] xl:text-xs">
                       <span className="flex items-center gap-1.5">
                         <CommonDot bg="bg-success" />
                         <span>{cuisine.protein}% Protein</span>

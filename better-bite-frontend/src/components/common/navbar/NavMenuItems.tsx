@@ -28,11 +28,6 @@ const NavMenuItems = ({
       opacityDelay: ".4s",
     },
     {
-      item: pathName.startsWith("/ar") ? "مدونة" : "Blog",
-      path: pathName.startsWith("/ar") ? "/ar/blog" : "/en/blog",
-      opacityDelay: ".7s",
-    },
-    {
       item: pathName.startsWith("/ar") ? "وجباتنا" : "Our Meals",
       path: pathName.startsWith("/ar") ? "/ar/menu" : "/en/menu",
       opacityDelay: ".5s",
@@ -43,6 +38,16 @@ const NavMenuItems = ({
         ? "/ar/plansAndPackages"
         : "/en/plansAndPackages",
       opacityDelay: ".6s",
+    },
+    {
+      item: pathName.startsWith("/ar") ? "مدونة" : "Blog",
+      path: pathName.startsWith("/ar") ? "/ar/blog" : "/en/blog",
+      opacityDelay: ".7s",
+    },
+    {
+      item: pathName.startsWith("/ar") ? "مدونة" : "About Us",
+      path: pathName.startsWith("/ar") ? "/ar/about-us" : "/en/about-us",
+      opacityDelay: ".8s",
     },
   ];
 
@@ -66,19 +71,6 @@ const NavMenuItems = ({
             priority
           />
         </Link>
-        {/* <IconButton
-          onClick={() => setIsNavOpen(!isNavOpen)}
-          sx={{
-            color: colorConfig.black,
-            p: 0.3,
-            opacity: {
-              xs: 1,
-              sm: 0,
-            },
-          }}
-        >
-          <CloseMenuIcon />
-        </IconButton> */}
       </div>
       {menuItems.map((menu, i) => (
         <Link

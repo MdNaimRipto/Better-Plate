@@ -115,21 +115,17 @@ const OurFlavorfulMenus = () => {
           {fMenus.map((menu) => (
             <div className="w-full lg:w-6/12" key={menu.id}>
               <div className="mx-4 mb-10 lg:mb-14 fmenu_card">
-                <div className="block  lg:flex items-center justify-center">
+                <div className="block md:flex items-center justify-center">
                   <Image
                     src={menu.img}
                     alt=""
-                    className="mx-auto lg:mx-0 mb-6 lg:mb-0"
+                    className="mx-auto md:mx-0 mb-6 lg:mb-0"
                   />
                   <div className="ml-5 ">
                     <div className="flex items-center ">
                       <h3 className="text-[1rem] lg:text-xl lg:font-medium font-semibold text-primary mb-4">
                         {menu.productName}
                       </h3>
-                      {/* <div className="cus_b"></div>
-                      <span className="text-xl font-medium text-black mb-4">
-                        {menu.price}
-                      </span> */}
                     </div>
                     <p className="text-base text-black ">{menu.desc}</p>
                   </div>
