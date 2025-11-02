@@ -23,7 +23,7 @@ const HowItWorks = () => {
 
   return (
     <div className="bg-white">
-      <div className="container pt-16">
+      <div className="container py-16">
         <div className="flex flex-col items-center justify-center gap-3 mb-5">
           <h4 className="text-4xl font-semibold text-black">How it works</h4>
           <p className="text-black">

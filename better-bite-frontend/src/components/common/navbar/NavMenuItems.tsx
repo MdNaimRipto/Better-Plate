@@ -20,7 +20,11 @@ const NavMenuItems = ({
   const menuItems = [
     {
       item: pathName.startsWith("/ar") ? "بيت" : "Home",
-      path: pathName.startsWith("/ar") ? "/ar" : "/en",
+      path: pathName.startsWith("/ar")
+        ? "/ar"
+        : pathName.startsWith("/en")
+        ? "/en"
+        : "/",
       opacityDelay: ".4s",
     },
     {

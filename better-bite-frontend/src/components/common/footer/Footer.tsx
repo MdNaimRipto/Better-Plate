@@ -47,14 +47,12 @@ const Footer = () => {
     },
   ];
   return (
-    <footer
-      style={{
-        backgroundImage: `url(${footerBg.src})`,
-        backgroundRepeat: "repeat",
-        backgroundSize: "cover",
-      }}
-      className="relative py-20"
-    >
+    <footer className="relative py-20 overflow-hidden">
+      <Image
+        src={footerBg}
+        alt="Footer Background"
+        className="w-full h-full object-cover absolute top-0 left-0 -z-20 brightness-90"
+      />
       <div className="container mx-auto px-14">
         <div className="md:flex  justify-center gap-6">
           {footerCols.map((col) => (

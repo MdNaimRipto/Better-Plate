@@ -7,6 +7,7 @@ import WhatMakesOurMenusSpecial from "./whatMakesOurMenusSpecial/WhatMakesOurMen
 import SimpleAndDeliciousFood from "./simpleAndDeliciousFood/SimpleAndDeliciousFood";
 import OurFlavorfulMenus from "./ourFlavorfulMenus/OurFlavorfulMenus";
 import HowItWorks from "./howItWorks/HowItWorks";
+import Reviews from "./reviews/Reviews";
 
 const HomeMain = () => {
   return (
@@ -22,8 +23,9 @@ const HomeMain = () => {
       <PerfectMealPlan />
       <PersonalizedMeals />
       <HowItWorks />
-      <WhatMakesOurMenusSpecial />
       <SimpleAndDeliciousFood />
+      <WhatMakesOurMenusSpecial />
+      <Reviews />
       <OurFlavorfulMenus />
     </div>
   );
