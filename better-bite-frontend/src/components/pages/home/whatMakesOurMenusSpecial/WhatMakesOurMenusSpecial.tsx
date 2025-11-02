@@ -44,7 +44,7 @@ const WhatMakesOurMenusSpecial = () => {
       // }}
     >
       <div className="container">
-        <div className="flex flex-col lg:flex-row justify-center w-full items-center gap-16  lg:h-[870px]">
+        <div className="flex flex-col lg:flex-row justify-center w-full items-center gap-16 my-16 lg:my-6 xl:my-0 xl:h-[870px]">
           <Image
             src={specialImgBg}
             alt="Special Menus Banner"

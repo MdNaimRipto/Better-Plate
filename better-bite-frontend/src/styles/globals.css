@@ -6,3 +6,12 @@ body {
   font-family: var(--font-poppins);
   background-color: #00000000;
 }
+
+/* globals.css or component CSS module */
+.swiper-pagination-bullet {
+  @apply bg-white w-[9px] h-[9px] opacity-100 !important;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-primary opacity-100 !important;
+}

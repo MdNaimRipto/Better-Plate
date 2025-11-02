@@ -12,7 +12,9 @@ import Reviews from "./reviews/Reviews";
 const HomeMain = () => {
   return (
     <div className="relative">
-      <div className="fixed left-0 top-0 w-full h-screen -z-50 overflow-hidden">
+      {/* Dark overlay */}
+      <div className="absolute w-full h-full -z-20 brightness-50 bg-black/50 top-0 left-0" />
+      <div className="fixed left-0 top-0 w-screen h-screen -z-50 overflow-hidden">
         <Image
           src={bg}
           alt="Banner-bg"
