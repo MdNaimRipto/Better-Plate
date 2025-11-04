@@ -35,11 +35,7 @@ const Navbar = () => {
     pathname === "/en" || pathname === "/ar" || pathname === "/";
 
   return (
-    <div
-      className={`absolute z-50 top-0 left-0 w-full ${
-        isHomePage ? "bg-white/0" : "bg-white/80 backdrop-blur-2xl"
-      } duration-700`}
-    >
+    <div className={`absolute z-50 top-0 left-0 w-full`}>
       <div
         className={`h-[80px] container px-4 flex items-center justify-between`}
       >
