@@ -1,6 +1,6 @@
 import Image from "next/image";
-import React from "react";
-import logo from "@/assets/my-target-logo.png";
+import logoBlack from "@/assets/logo.svg";
+import logoWhite from "@/assets/logo-white.svg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -16,7 +16,11 @@ const NavLogo = () => {
     >
       <Image
         className=""
-        src={logo}
+        src={
+          pathName === "/ar" || pathName === "/en" || pathName === "/"
+            ? logoWhite
+            : logoBlack
+        }
         alt="Navbar-logo"
         // width={160}
         // height={160}
