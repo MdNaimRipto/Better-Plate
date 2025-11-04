@@ -1,28 +1,29 @@
 import Image from "next/image";
 import Banner from "./banner/Banner";
 import PerfectMealPlan from "./perfectMealPlan/PerfectMealPlan";
-import bg from "@/assets/banner/pexels-nadin-sh-78971847-19252769.jpg";
+import bg1 from "@/assets/banner/banner-1.jpg";
+import bg2 from "@/assets/banner/banner-2.jpg";
+import bg3 from "@/assets/banner/banner-3.jpg";
 import PersonalizedMeals from "./personalizedMeals/PersonalizedMeals";
 import WhatMakesOurMenusSpecial from "./whatMakesOurMenusSpecial/WhatMakesOurMenusSpecial";
 import SimpleAndDeliciousFood from "./simpleAndDeliciousFood/SimpleAndDeliciousFood";
 import OurFlavorfulMenus from "./ourFlavorfulMenus/OurFlavorfulMenus";
 import HowItWorks from "./howItWorks/HowItWorks";
 import Reviews from "./reviews/Reviews";
+import BackgroundSlider from "./BackgroundSlider";
 
 const HomeMain = () => {
   return (
     <div className="relative">
-      {/* Dark overlay */}
-      <div className="absolute w-full h-full -z-20 brightness-50 bg-black/50 top-0 left-0" />
-      <div className="fixed left-0 top-0 w-screen h-screen -z-50 overflow-hidden">
+      {/* <div className="fixed left-0 top-0 w-screen h-screen -z-50 overflow-hidden">
         <Image
-          src={bg}
+          src={bg1}
           alt="Banner-bg"
           className="w-full h-full object-cover brightness-50"
           priority
-          unoptimized={true}
         />
-      </div>
+      </div> */}
+      <BackgroundSlider />
       <Banner />
       <PerfectMealPlan />
       <PersonalizedMeals />

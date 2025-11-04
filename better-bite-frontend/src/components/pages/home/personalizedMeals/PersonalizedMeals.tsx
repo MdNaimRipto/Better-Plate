@@ -1,16 +1,22 @@
 import paper from "@/assets/paper.webp";
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import font from "next/font/local";
 
-const inter = Inter({});
+const customFont = font({
+  src: "../../../../assets/font/TANSONGBIRD.ttf",
+  style: "normal",
+  display: "swap",
+});
 
 const PersonalizedMeals = () => {
   return (
     <div
-      className={`text-center flex flex-col gap-2 md:gap-4 lg:gap-8 xl:gap-12 text-2xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold h-[300px] md:h-[600px] lg:h-[800px] 2xl:h-[1000px] text-white items-center justify-center backdrop-blur-[2px] relative uppercase tracking-tight overflow-hidden ${inter.className}`}
+      className={`text-center flex flex-col gap-3 md:gap-4 lg:gap-8 xl:gap-12 2xl:gap-14 text-sm md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-semibold h-[280px] md:h-[600px] lg:h-[600px] xl:h-[800px] 2xl:h-[900px] text-white items-center justify-center backdrop-blur-[2px] relative uppercase tracking-wider overflow-hidden ${customFont.className}`}
     >
       <p>Slammed Schedule?</p>
-      <p>Personalized Meals.</p>
+      <p>
+        <span className="text-secondary">Personalized</span> Meals.
+      </p>
       <p>Ready to Eat</p>
       <Image
         src={paper}

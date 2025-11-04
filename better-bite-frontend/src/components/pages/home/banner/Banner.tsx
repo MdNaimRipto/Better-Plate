@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Banner = () => {
   return (
-    <div className="relative flex flex-col items-center justify-center text-white gap-7 h-[600px] md:h-screen w-full backdrop-blur-[2px] overflow-hidden">
+    <div className="relative flex flex-col items-center justify-center text-white gap-7 h-[600px] md:h-screen w-full overflow-hidden">
       <div className="flex flex-col md:flex-row items-center justify-center w-full gap-3 md:px-12 lg:px-0">
         <CommonLineDesign style="hidden md:flex" />
         <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-normal md:font-extralight text-white text-center inline-block">
