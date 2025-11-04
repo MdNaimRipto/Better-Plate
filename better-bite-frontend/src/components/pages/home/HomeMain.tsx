@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Banner from "./banner/Banner";
 import PerfectMealPlan from "./perfectMealPlan/PerfectMealPlan";
-import bg from "@/assets/home-bg.jpg";
+import bg from "@/assets/banner/pexels-nadin-sh-78971847-19252769.jpg";
 import PersonalizedMeals from "./personalizedMeals/PersonalizedMeals";
 import WhatMakesOurMenusSpecial from "./whatMakesOurMenusSpecial/WhatMakesOurMenusSpecial";
 import SimpleAndDeliciousFood from "./simpleAndDeliciousFood/SimpleAndDeliciousFood";
@@ -19,6 +19,8 @@ const HomeMain = () => {
           src={bg}
           alt="Banner-bg"
           className="w-full h-full object-cover brightness-50"
+          priority
+          unoptimized={true}
         />
       </div>
       <Banner />

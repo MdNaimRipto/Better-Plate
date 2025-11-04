@@ -16,87 +16,75 @@ const OurFlavorfulMenus = () => {
   const fMenus = [
     {
       id: 1,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Dressed Herring Salad",
       img: fImg1,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "Potatoes, carrots, beet roots, chopped onions and mayonnaise",
     },
     {
       id: 2,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Gado-gado",
       img: fImg2,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "Potato, bean sprouts, spinach, chayote, bitter gourd, corn",
     },
     {
       id: 3,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Tom Yum Soup",
       img: fImg3,
       desc: "Loaded with bacon, stuffed with two kinds of cheese",
     },
     {
       id: 4,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Chicken Pizza",
       img: fImg4,
       desc: "Loaded with bacon, stuffed with two kinds of cheese",
     },
     {
       id: 5,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Cobb Salad",
       img: fImg5,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "Stuffed with chicken, bacon, avocado, eggs and cheese",
     },
     {
       id: 6,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Cheesy Macaroni",
       img: fImg6,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "Onion, tomato, masala, cheese",
     },
     {
       id: 7,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Risotto",
       img: fImg7,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "White wine, arborio rice, parmesan cheese, butter cheese",
     },
     {
       id: 8,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Potato Croquettes",
       img: fImg8,
       desc: "Loaded with bacon, stuffed with two kinds of cheese",
     },
     {
       id: 9,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Spaghetti Bolognese",
       img: fImg9,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "Lean ground beef, red wine, tomato sauce, beef broth",
     },
     {
       id: 10,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Garganelli",
       img: fImg10,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "Portobello mushrooms, white wine, arborio rice, chicken",
     },
     {
       id: 11,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Chicken Escalope",
       img: fImg11,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "Bbq sauce, american garden, chicken breasts, coleslaw",
     },
     {
       id: 12,
-      productName: "Waldorf Salad	",
-      price: "$2.95",
+      productName: "Waldorf Salad",
       img: fImg12,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
+      desc: "Fresh apples, celery and walnuts, dressed in mayonnaise",
     },
   ];
   return (
@@ -115,7 +103,7 @@ const OurFlavorfulMenus = () => {
           {fMenus.map((menu) => (
             <div className="w-full lg:w-6/12" key={menu.id}>
               <div className="mx-4 mb-10 lg:mb-14 fmenu_card">
-                <div className="block md:flex items-center justify-center">
+                <div className="block md:flex items-center">
                   <Image
                     src={menu.img}
                     alt=""
