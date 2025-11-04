@@ -27,26 +27,27 @@ const NavMenuItems = ({
         : "/",
       opacityDelay: ".4s",
     },
-    {
-      item: pathName.startsWith("/ar") ? "وجباتنا" : "Our Meals",
-      path: pathName.startsWith("/ar") ? "/ar/menu" : "/en/menu",
-      opacityDelay: ".5s",
-    },
+
     {
       item: pathName.startsWith("/ar") ? "الخطط والحزم" : "Plans & Packages",
       path: pathName.startsWith("/ar")
         ? "/ar/plansAndPackages"
         : "/en/plansAndPackages",
-      opacityDelay: ".6s",
+      opacityDelay: ".5s",
     },
     {
-      item: pathName.startsWith("/ar") ? "مدونة" : "Blog",
-      path: pathName.startsWith("/ar") ? "/ar/blog" : "/en/blog",
-      opacityDelay: ".7s",
+      item: pathName.startsWith("/ar") ? "وجباتنا" : "Our Meals",
+      path: pathName.startsWith("/ar") ? "/ar/menu" : "/en/our-meals",
+      opacityDelay: ".6s",
     },
     {
       item: pathName.startsWith("/ar") ? "مدونة" : "About Us",
       path: pathName.startsWith("/ar") ? "/ar/about-us" : "/en/about-us",
+      opacityDelay: ".7s",
+    },
+    {
+      item: pathName.startsWith("/ar") ? "مدونة" : "Blog",
+      path: pathName.startsWith("/ar") ? "/ar/blog" : "/en/blog",
       opacityDelay: ".8s",
     },
   ];
