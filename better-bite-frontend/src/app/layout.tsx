@@ -4,6 +4,9 @@ import "../styles/globals.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import ScrollToTopButton from "@/components/common/ScrollToTop";
+import StoreProvider from "./StoreProvider";
+import AuthContext from "@/context/AuthContext";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +30,12 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${poppins.variable} antialiased`}
       >
-        {children}
+        <StoreProvider>
+          <AuthContext>
+            {children}
+            <Toaster />
+          </AuthContext>
+        </StoreProvider>
         <ScrollToTopButton />
       </body>
     </html>
