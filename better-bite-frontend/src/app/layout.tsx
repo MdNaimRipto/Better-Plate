@@ -33,7 +33,11 @@ export default function RootLayout({
         <StoreProvider>
           <AuthContext>
             {children}
-            <Toaster />
+            <Toaster
+              richColors={true}
+              position="top-right"
+              closeButton={true}
+            />
           </AuthContext>
         </StoreProvider>
         <ScrollToTopButton />
