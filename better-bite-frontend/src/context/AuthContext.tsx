@@ -2,7 +2,7 @@
 import { useUserInfoQuery } from "@/redux/features/userApis";
 import { IUser } from "@/types/userTypes";
 import { createContext, ReactNode, useContext } from "react";
-// import Loader from "@/components/common/loader/Loader";
+import Loader from "@/components/common/Loader";
 
 interface UserContextType {
   user: null | IUser;
@@ -18,8 +18,7 @@ const AuthContext = ({ children }: { children: ReactNode }) => {
   const { data, isLoading } = useUserInfoQuery({});
 
   if (isLoading) {
-    // return <Loader />;
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   const user = data?.data as IUser;
