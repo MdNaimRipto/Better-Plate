@@ -3,6 +3,7 @@ import Image from "next/image";
 import paper from "@/assets/Common/paper-design.webp";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+// import bg1 from "@/assets/banner/banner-3.jpg";
 
 const Reviews = () => {
   const reviews = [
@@ -40,8 +41,14 @@ const Reviews = () => {
 
   return (
     <div className="relative overflow-hidden backdrop-blur-[2px]">
-      {/* Dark overlay */}
-      {/*<div className="absolute w-full h-full -z-20 brightness-50 bg-black/50 top-0 left-0"></div> */}
+      {/* <div className="absolute left-0 top-0 w-screen h-screen -z-50 overflow-hidden">
+        <Image
+          src={bg1}
+          alt="Banner-bg"
+          className="w-full h-full object-cover brightness-50"
+          priority
+        />
+      </div> */}
       <div className="container flex flex-col items-center justify-center h-[800px] md:h-[900px] xl:h-[1000px] gap-12">
         {/* Header */}
         <div className="flex flex-col gap-6 items-center justify-center text-white">

@@ -1,9 +1,18 @@
 import paper from "@/assets/paper.webp";
 import Image from "next/image";
+// import bg1 from "@/assets/banner/banner-2.jpg";
 
 const Banner = () => {
   return (
     <div className="relative flex flex-col items-center justify-center text-white gap-7 h-[600px] md:h-screen w-full overflow-hidden">
+      {/* <div className="absolute left-0 top-0 w-screen h-screen -z-50 overflow-hidden">
+        <Image
+          src={bg1}
+          alt="Banner-bg"
+          className="w-full h-full object-cover brightness-50"
+          priority
+        />
+      </div> */}
       <div className="flex flex-col md:flex-row items-center justify-center w-full gap-3 md:px-12 lg:px-0">
         <CommonLineDesign style="hidden md:flex" />
         <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-normal md:font-extralight text-white text-center inline-block">
