@@ -6,7 +6,7 @@ const LottieAnimation = () => {
     <div className="min-h-screen flex flex-col justify-center items-center gap-4">
       <DotLottieReact
         className="w-1/2 z-30"
-        src="/public/loader.lottie"
+        src="/loader.lottie"
         loop
         autoplay
       />
