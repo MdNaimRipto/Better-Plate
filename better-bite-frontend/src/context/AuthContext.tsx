@@ -13,8 +13,6 @@ export const UserContext = createContext<UserContextType>({
 });
 
 const AuthContext = ({ children }: { children: ReactNode }) => {
-  // const [user, setUser] = useState<null | any>(null);
-
   const { data, isLoading } = useUserInfoQuery({});
 
   if (isLoading) {
