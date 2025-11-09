@@ -6,6 +6,10 @@ import AuthTitle from "../AuthTitle";
 import PasswordInputField from "../authInputFields/PasswordInputField";
 import Link from "next/link";
 import AuthBtn from "../AuthBtn";
+import { userApis } from "@/redux/features/userApis";
+import { postApiHandler } from "@/lib/postApiHandler";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux/hook";
 
 const RegisterMain = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +19,6 @@ const RegisterMain = () => {
     email: false,
     password: false,
     contactNumber: false,
-    role: false,
   });
 
   const handleInputBlur =
@@ -28,8 +31,45 @@ const RegisterMain = () => {
 
   const searchParams = new URLSearchParams(window.location.search);
   const redirectUrl = searchParams.get("redirectUrl");
+  const router = useRouter();
 
-  const handleCustomRegister = async () => {};
+  const [registerApi] = userApis.useRegisterMutation();
+  const dispatch = useAppDispatch();
+
+  const handleCustomRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    const form = e.target as HTMLFormElement;
+
+    const firstName = form.firstName.value;
+    const lastName = form.lastName.value;
+    const email = form.email.value;
+    const contactNumber = form.contactNumber.value;
+    const password = form.password.value;
+
+    const option = {
+      data: {
+        userName: `${firstName} ${lastName}`,
+        email,
+        password,
+        contactNumber,
+      },
+    };
+
+    const optionalTask = () => {
+      dispatch(userApis.util.resetApiState());
+      router.push("/user");
+    };
+
+    await postApiHandler({
+      mutateFn: registerApi,
+      options: option,
+      setIsLoading: setIsLoading,
+      optionalTasksFn: optionalTask,
+    });
+  };
   return (
     // <OpacityTransition>
     <div className="flex flex-col justify-center w-full md:w-11/12 xl:w-2/5 container my-12 md:my-8 xl:my-0 px-4 min-h-screen">

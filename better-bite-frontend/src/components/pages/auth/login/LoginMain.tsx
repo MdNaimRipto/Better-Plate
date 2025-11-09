@@ -6,6 +6,10 @@ import AuthTitle from "../AuthTitle";
 import PasswordInputField from "../authInputFields/PasswordInputField";
 import Link from "next/link";
 import AuthBtn from "../AuthBtn";
+import { postApiHandler } from "@/lib/postApiHandler";
+import { userApis } from "@/redux/features/userApis";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux/hook";
 
 const LoginMain = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +20,7 @@ const LoginMain = () => {
 
   const searchParams = new URLSearchParams(window.location.search);
   const redirectUrl = searchParams.get("redirectUrl");
+  const router = useRouter();
 
   const handleInputBlur =
     (fieldName: string) => (e: { target: { value: string } }) => {
@@ -25,7 +30,38 @@ const LoginMain = () => {
       });
     };
 
-  const handleCustomLogin = async () => {};
+  const [loginApi] = userApis.useLoginMutation();
+  const dispatch = useAppDispatch();
+
+  const handleCustomLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    const form = e.target as HTMLFormElement;
+
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const option = {
+      data: {
+        email,
+        password,
+      },
+    };
+
+    const optionalTask = () => {
+      dispatch(userApis.util.resetApiState());
+      router.push("/user");
+    };
+
+    await postApiHandler({
+      mutateFn: loginApi,
+      options: option,
+      setIsLoading: setIsLoading,
+      optionalTasksFn: optionalTask,
+    });
+  };
 
   return (
     // <OpacityTransition>

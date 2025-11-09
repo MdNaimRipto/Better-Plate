@@ -15,7 +15,7 @@ export const userApis = apiSlice.injectEndpoints({
         },
         data: JSON.stringify(data),
       }),
-      invalidatesTags: [],
+      invalidatesTags: ["USER"],
     }),
     //
     // * Register

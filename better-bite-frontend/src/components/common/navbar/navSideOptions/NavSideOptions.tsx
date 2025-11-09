@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import ResponsiveMenuHandlerButton from "./ResponsiveMenuHandlerButton";
-// import { useUserContext } from "@/context/AuthContext";
-import ProfileAndDashboardDropDown from "./ProfileAndDashboardDropDown";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useUserContext } from "@/context/AuthContext";
+import { userApis } from "@/redux/features/userApis";
+import { postApiHandler } from "@/lib/postApiHandler";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux/hook";
 
 const NavSideOptions = ({
   isNavOpen,
@@ -18,29 +20,57 @@ const NavSideOptions = ({
   isHomePage: boolean;
   togglerRef: React.RefObject<HTMLButtonElement | null>;
 }) => {
-  const pathName = usePathname();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = useUserContext();
+
+  const [logout] = userApis.useLogoutMutation();
+  const dispatch = useAppDispatch();
+
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    const option = {};
+    const optionalTask = () => {
+      router.push("/");
+      dispatch(userApis.util.resetApiState());
+    };
+    await postApiHandler({
+      mutateFn: logout,
+      options: option,
+      setIsLoading: setIsLoading,
+      optionalTasksFn: optionalTask,
+    });
+  };
 
   return (
     <div className="flex items-center gap-4 justify-end w-full md:w-[70%] xl:w-auto">
-      {/* {!user ? ( */}
-      <Link href="/auth/login">
-        <button
-          className={`font-semibold transition-all duration-700 border px-[10px] py-[6px] sm:px-[20px] sm:py-[8px] text-[8px] sm:text-[12px] rounded ${
-            !isScrolled && isHomePage
-              ? "border-white text-white"
-              : "border-black text-black"
-          }`}
-        >
-          {pathName.startsWith("/ar") ? "تسجيل الدخول" : "Login"}
-        </button>
-      </Link>
-      {/* ) : (
-        <ProfileAndDashboardDropDown
-          user={user}
-          isScrolled={isScrolled}
-          isHomePage={isHomePage}
-        />
-      )} */}
+      {!user ? (
+        <Link href="/auth/login">
+          <button
+            className={`font-semibold transition-all duration-700 border px-[10px] py-[6px] sm:px-[20px] sm:py-[8px] text-[8px] sm:text-[12px] rounded ${
+              !isScrolled && isHomePage
+                ? "border-white text-white"
+                : "border-black text-black"
+            }`}
+          >
+            Login
+          </button>
+        </Link>
+      ) : (
+        <>
+          <button
+            onClick={handleLogout}
+            className={`font-semibold transition-all duration-700 border px-[10px] py-[6px] sm:px-[20px] sm:py-[8px] text-[8px] sm:text-[12px] rounded ${
+              !isScrolled && isHomePage
+                ? "border-white text-white"
+                : "border-black text-black"
+            }`}
+          >
+            {isLoading ? "Loading..." : "Logout"}
+          </button>
+        </>
+      )}
       <ResponsiveMenuHandlerButton
         isNavOpen={isNavOpen}
         setIsNavOpen={setIsNavOpen}
