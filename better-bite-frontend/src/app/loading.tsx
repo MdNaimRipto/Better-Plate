@@ -1,5 +1,7 @@
+import LottieAnimation from "@/components/animation/LottieAnimation";
+
 const LoadingPage = () => {
-  return <div>Loading...</div>;
+  return <LottieAnimation />;
 };
 
 export default LoadingPage;
