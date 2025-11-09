@@ -1,10 +1,9 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { FaArrowUpLong as ArrowUp } from "react-icons/fa6";
 
 const ScrollToTopButton = ({
-  showAfter = 300, // px distance before showing
+  showAfter = 300, 
   smooth = true,
 }: {
   showAfter?: number;
