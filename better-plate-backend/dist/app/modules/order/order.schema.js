@@ -5,9 +5,10 @@ const mongoose_1 = require("mongoose");
 const order_constant_1 = require("./order.constant");
 const orderSchema = new mongoose_1.Schema({
     packageInfo: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        required: true,
-        ref: "PlansAndPackages",
+        planType: { type: String, required: true },
+        mealPerDay: [{ type: String, required: true }],
+        daysOfWeek: [{ type: String, required: true }],
+        totalDays: { type: Number, required: true },
     },
     startingDate: { type: Date, required: true },
     expireDate: { type: Date, required: true },
@@ -21,20 +22,12 @@ const orderSchema = new mongoose_1.Schema({
         required: true,
         default: "PAUSED",
     },
-    cardDetails: {
-        cardType: { type: String, required: true },
-        cardCountry: { type: String, required: true },
-        cardLast4: { type: String, required: true },
-    },
     customer: {
         fullName: { type: String, required: true },
         email: { type: String, required: true },
         phone: { type: String, required: true },
         address: { type: String, required: true },
-        city: { type: String, required: true },
-        country: { type: String, required: true },
     },
-    deliveryTime: { type: String, required: true },
 }, {
     timestamps: true,
 });

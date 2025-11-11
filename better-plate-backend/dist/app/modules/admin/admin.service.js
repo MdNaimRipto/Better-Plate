@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminService = void 0;
 const order_schema_1 = require("../order/order.schema");
-const plansAndPackages_schema_1 = require("../plansAndPackages/plansAndPackages.schema");
 const users_schema_1 = require("../users/users.schema");
 const getAdminOverview = () => __awaiter(void 0, void 0, void 0, function* () {
     const totalSale = yield order_schema_1.Orders.countDocuments();
@@ -25,26 +24,10 @@ const getAdminOverview = () => __awaiter(void 0, void 0, void 0, function* () {
     ]);
     const totalAmountPaid = amountCounter.length > 0 ? amountCounter[0].totalAmountPaid : 0;
     const totalCustomer = yield users_schema_1.Users.countDocuments();
-    // Get the top-selling package
-    const topPackage = yield order_schema_1.Orders.aggregate([
-        {
-            $group: {
-                _id: "$packageInfo", // Group by package ID
-                count: { $sum: 1 }, // Count occurrences of each package
-            },
-        },
-        { $sort: { count: -1 } }, // Sort in descending order
-        { $limit: 1 }, // Get the top-selling package
-    ]);
-    const topSellingPackageId = topPackage.length > 0 ? topPackage[0]._id : null;
-    const topSellingPackage = yield plansAndPackages_schema_1.PlansAndPackages.findOne({
-        _id: topSellingPackageId,
-    });
     return {
         totalSale,
         totalAmountPaid,
         totalCustomer,
-        topSellingPackage,
     };
 });
 exports.AdminService = {

@@ -10,7 +10,7 @@ const PageToggle = () => {
   const isDashboard = pathname === "/dashboard";
 
   return (
-    <div className="flex justify-center space-x-6 border-b border-gray-300 pb-2 mb-6">
+    <div className="flex justify-center space-x-6 border-b border-gray-300 pb-2 mb-6 container">
       <button
         className={`text-lg font-medium pb-1 ${
           isProfile
@@ -19,7 +19,7 @@ const PageToggle = () => {
         }`}
         onClick={() => router.push("/user")}
       >
-        Profile
+        My Orders
       </button>
 
       <button

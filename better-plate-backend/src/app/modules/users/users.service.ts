@@ -17,13 +17,14 @@ import { UserSearchableFields } from "./user.constant";
 import { calculatePaginationFunction } from "../../../helpers/paginationHelpers";
 import { SortOrder } from "mongoose";
 import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import { Response } from "express";
 
 //* User Register Custom
-const userRegister = async (payload: IUser): Promise<IAuthUser | null> => {
+const userRegister = async (payload: IUser): Promise<IAuthenticatedUser> => {
   const { email, contactNumber } = payload;
 
   const isExistsUser = await Users.findOne({
-    $or: [{ email: email.toLocaleLowerCase() }, { contactNumber }],
+    $or: [{ email: email.toLowerCase() }, { contactNumber }],
   });
 
   if (isExistsUser) {
@@ -35,7 +36,7 @@ const userRegister = async (payload: IUser): Promise<IAuthUser | null> => {
 
   const user = await Users.create({
     ...payload,
-    email: email.toLocaleLowerCase(),
+    email: email.toLowerCase(),
   });
 
   const transporter = nodemailer.createTransport({
@@ -93,14 +94,34 @@ const userRegister = async (payload: IUser): Promise<IAuthUser | null> => {
   `,
   });
 
-  return null;
+  const jwtPayload = {
+    email: user.email,
+    id: user._id,
+  };
+
+  const accessToken = jwtHelpers.createToken(
+    jwtPayload,
+    config.jwt_access_secret,
+    config.jwt_access_expires_in,
+  );
+
+  const refreshToken = jwtHelpers.createToken(
+    jwtPayload,
+    config.jwt_refresh_secret,
+    config.jwt_refresh_expires_in,
+  );
+
+  return {
+    accessToken,
+    refreshToken,
+  };
 };
 
 //* User Login Custom
 const userLogin = async (payload: ILoginUser): Promise<IAuthenticatedUser> => {
   const { email, password } = payload;
 
-  const isExists = await Users.findOne({ email: email.toLocaleLowerCase() });
+  const isExists = await Users.findOne({ email: email.toLowerCase() });
 
   if (!isExists) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid Email Or Password");
@@ -152,16 +173,41 @@ const userLogin = async (payload: ILoginUser): Promise<IAuthenticatedUser> => {
 // * Get Authenticated User Access
 const getAuthenticatedUserDetails = async (
   accessToken: string,
-): Promise<IUser | null> => {
+): Promise<Partial<IUser> | null> => {
   const { id, email } = jwtHelpers.jwtVerify(
     accessToken,
     config.jwt_access_secret,
   );
+
   const result = await Users.findOne({
     _id: id,
-    email: email.toLocaleUpperCase(),
+    email: email.toLowerCase(),
   }).select("-password");
-  return result;
+
+  return !result
+    ? null
+    : {
+        userName: String(result?.userName),
+        email: String(result?.email),
+        contactNumber: String(result?.contactNumber),
+      };
+};
+
+// * Logout
+const logout = async (res: Response): Promise<null> => {
+  console.log(res.cookie);
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
+
+  return null;
 };
 
 //* Update User
@@ -343,6 +389,7 @@ export const UserService = {
   userRegister,
   userLogin,
   getAuthenticatedUserDetails,
+  logout,
   updateUser,
   updatePassword,
   getAllUsers,

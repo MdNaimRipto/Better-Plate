@@ -6,13 +6,15 @@ import { OrderService } from "./order.service";
 import pick from "../../../shared/shared";
 import { OrderFilterableFields } from "./order.constant";
 import { paginationFields } from "../../../constants/pagination.constant";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
 
 // All Orders
 const getAllOrders = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, OrderFilterableFields);
   const options = pick(req.query, paginationFields);
+  const token = jwtHelpers.verifyAuthToken(req);
 
-  const result = await OrderService.getAllOrders(filters, options);
+  const result = await OrderService.getAllOrders(filters, options, token);
 
   sendResponse(res, {
     success: true,
@@ -24,11 +26,8 @@ const getAllOrders = catchAsync(async (req: Request, res: Response) => {
 
 // User Orders
 const getUserOrders = catchAsync(async (req: Request, res: Response) => {
-  const { email, phone } = req.query;
-  const result = await OrderService.getUserOrders(
-    email as string,
-    phone as string,
-  );
+  const token = jwtHelpers.verifyAuthToken(req);
+  const result = await OrderService.getUserOrders(token);
 
   sendResponse(res, {
     success: true,

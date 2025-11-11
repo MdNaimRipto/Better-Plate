@@ -43,8 +43,8 @@ const createPaymentLink = async (payload: IPaymentBody) => {
           quantity: 1,
         },
       ],
-      success_url: "http://localhost:3000/user",
-      cancel_url: "http://localhost:3000/payment-cancel",
+      success_url: `${config.FRONTEND_URL}/user`,
+      cancel_url: `${config.FRONTEND_URL}/en/plansAndPackages`,
       metadata: {
         // custom data you’ll receive later in the webhook
         email: String(email),

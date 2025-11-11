@@ -32,12 +32,12 @@ const verifyAuthToken_1 = require("../../../util/verifyAuthToken");
 const shared_1 = __importDefault(require("../../../shared/shared"));
 const user_constant_1 = require("./user.constant");
 const pagination_constant_1 = require("../../../constants/pagination.constant");
+const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
 // User Register
 const userRegister = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userInfo = __rest(req.body, []);
-    const { redirectUrl } = req.query;
-    const result = yield users_service_1.UserService.userRegister(userInfo, redirectUrl);
-    console.log({ redirectUrl });
+    const result = yield users_service_1.UserService.userRegister(userInfo);
+    (0, jwtHelpers_1.setAuthCookie)(res, result);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -45,32 +45,11 @@ const userRegister = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
         data: result,
     });
 }));
-// Verify User
-const verifyUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, uid } = req.body;
-    const result = yield users_service_1.UserService.verifyUser(email, uid);
-    (0, sendResponse_1.default)(res, {
-        success: true,
-        statusCode: http_status_1.default.OK,
-        message: "Account Verified. Please Login Now!",
-        data: result,
-    });
-}));
-// Update Mandatory Items
-const updateMandatoryProfileItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, uid, updateData } = req.body;
-    const result = yield users_service_1.UserService.updateMandatoryProfileItems(email, uid, updateData);
-    (0, sendResponse_1.default)(res, {
-        success: true,
-        statusCode: http_status_1.default.OK,
-        message: "Thank you for your Patience. Please Login Now!",
-        data: result,
-    });
-}));
 // User Login
 const userLogin = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const authCredentials = __rest(req.body, []);
     const result = yield users_service_1.UserService.userLogin(authCredentials);
+    (0, jwtHelpers_1.setAuthCookie)(res, result);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -78,34 +57,32 @@ const userLogin = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
         data: result,
     });
 }));
-// Check User Exists
-const checkUserForProviderLogin = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userInfo = __rest(req.body, []);
-    const result = yield users_service_1.UserService.checkUserForProviderLogin(userInfo);
+// Get User
+const getAuthenticatedUserDetails = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const token = jwtHelpers_1.jwtHelpers.verifyAuthToken(req);
+    const result = yield users_service_1.UserService.getAuthenticatedUserDetails(token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
-        message: "Login Successful",
+        message: "User Details Retrieved Successfully",
         data: result,
     });
 }));
-// Check User Exists
-const providerLogin = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userInfo, authMethod } = req.body;
-    const result = yield users_service_1.UserService.providerLogin(userInfo, authMethod);
+// Logout
+const logout = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield users_service_1.UserService.logout(res);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
-        message: "Login Successful",
-        data: result,
+        message: "User Logged Out Successfully",
+        data: null,
     });
 }));
 // Update User
 const updatedUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
     const payload = __rest(req.body, []);
     const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
-    const result = yield users_service_1.UserService.updateUser(id, payload, token);
+    const result = yield users_service_1.UserService.updateUser(payload, token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -113,7 +90,7 @@ const updatedUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         data: result,
     });
 }));
-// Update User
+// Update Password
 const updatePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = __rest(req.body, []);
     const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
@@ -122,39 +99,6 @@ const updatePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         success: true,
         statusCode: http_status_1.default.OK,
         message: "User Updated Successfully",
-        data: result,
-    });
-}));
-// Find User For Forgot Password
-const findUserForForgotPassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
-    const result = yield users_service_1.UserService.findUserForForgotPassword(email);
-    (0, sendResponse_1.default)(res, {
-        success: true,
-        statusCode: http_status_1.default.OK,
-        message: "OTP has been sent to your email",
-        data: result,
-    });
-}));
-// Find User For Forgot Password
-const verifyOtpForForgotPassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, otp } = req.body;
-    const result = yield users_service_1.UserService.verifyOtpForForgotPassword(email, otp);
-    (0, sendResponse_1.default)(res, {
-        success: true,
-        statusCode: http_status_1.default.OK,
-        message: "OTP Successfully Verified!",
-        data: result,
-    });
-}));
-// Forgot Password
-const forgotPassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const payload = __rest(req.body, []);
-    const result = yield users_service_1.UserService.forgotPassword(payload);
-    (0, sendResponse_1.default)(res, {
-        success: true,
-        statusCode: http_status_1.default.OK,
-        message: "Password Updated Successfully",
         data: result,
     });
 }));
@@ -183,16 +127,11 @@ const deleteUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 }));
 exports.UserController = {
     userRegister,
-    verifyUser,
-    updateMandatoryProfileItems,
     userLogin,
-    checkUserForProviderLogin,
-    providerLogin,
+    getAuthenticatedUserDetails,
+    logout,
     updatedUser,
     updatePassword,
-    findUserForForgotPassword,
-    verifyOtpForForgotPassword,
-    forgotPassword,
     getAllUsers,
     deleteUser,
 };

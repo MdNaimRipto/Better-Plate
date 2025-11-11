@@ -1,25 +1,30 @@
 "use client";
 
 import { useState } from "react";
-
-interface IPlans {
-  title: string;
-}
+import { usePlans } from "../PlansProvider";
 
 const SelectMealPerDay = () => {
+  const { setMealPerDay } = usePlans();
   const [selected, setSelected] = useState<Array<number>>([]);
 
-  const plans: IPlans[] = [
-    {
-      title: "Breakfast",
-    },
-    {
-      title: "Lunch",
-    },
-    {
-      title: "Dinner",
-    },
-  ];
+  const plans: string[] = ["Breakfast", "Lunch", "Dinner"];
+
+  const toggleSelection = (index: number) => {
+    let updatedSelected: number[];
+
+    if (selected.includes(index)) {
+      updatedSelected = selected.filter((item) => item !== index);
+    } else {
+      updatedSelected = [...selected, index];
+    }
+
+    setSelected(updatedSelected);
+
+    // Update the mealPerDay array based on selected indexes
+    const selectedMeals = plans.filter((_, i) => updatedSelected.includes(i));
+    setMealPerDay(selectedMeals);
+  };
+
   return (
     <div>
       <h5 className="text-xl md:text-3xl font-medium text-coal/90 mb-5">
@@ -30,28 +35,22 @@ const SelectMealPerDay = () => {
           <button
             key={i}
             className={`rounded-2xl p-6 text-start border-2 ${
-              selected.includes(i + 1)
+              selected.includes(i)
                 ? "border-primary bg-primary/5"
                 : "border-lightGray bg-white"
             } duration-300`}
-            onClick={() =>
-              setSelected(
-                selected.includes(i + 1)
-                  ? selected.filter((item) => item !== i + 1)
-                  : [...selected, i + 1]
-              )
-            }
+            onClick={() => toggleSelection(i)}
           >
             <div className="flex items-center justify-between gap-6">
-              <h6 className="text-base font-medium text-coal">{plan.title}</h6>
+              <h6 className="text-base font-medium text-coal">{plan}</h6>
               <div
                 className={`w-6 h-6 flex items-center justify-center rounded-md border-2 transition-colors duration-300 ${
-                  selected.includes(i + 1)
+                  selected.includes(i)
                     ? "border-primary bg-primary"
                     : "border-lightGray bg-white"
                 }`}
               >
-                {selected.includes(i + 1) && (
+                {selected.includes(i) && (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-4 h-4 text-white"
@@ -78,7 +77,7 @@ const SelectMealPerDay = () => {
           <div className="flex items-center justify-between gap-6">
             <h6 className="text-base font-medium text-coal">Snacks</h6>
             <div
-              className={`w-6 h-6 flex items-center justify-center rounded-md border-2 transition-colors duration-300 border-primary bg-primary`}
+              className={`w-6 h-6 flex items-center justify-center rounded-md border-2 border-primary bg-primary`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
