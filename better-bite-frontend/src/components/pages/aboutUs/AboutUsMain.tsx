@@ -1,7 +1,8 @@
 import OurGoal from "./ourGoal/OurGoal";
 import valueImg from "@/assets/blog/119A6654-18259.jpg";
 import OurValues from "./ourValues/OurValues";
-import img from "@/assets/blog/119A6654-18259.jpg";
+import scheduleImgOne from "@/assets/about-us/portrait-of-smiling-man.jpg";
+import scheduleImgTwo from "@/assets/about-us/woman-talking-phone-office.jpg";
 import ScheduleCall from "./scheduleCall/ScheduleCall";
 
 const AboutUsMain = () => {
@@ -80,7 +81,7 @@ const AboutUsMain = () => {
   const consultationData = [
     {
       title: "Schedule a call with our team now 🤙",
-      image: img.src,
+      image: scheduleImgOne.src,
       description:
         "Do you have additional questions? Let us contact you and we will help you with all your questions.",
       subTitle: "Call details provided upon confirmation",
@@ -88,7 +89,7 @@ const AboutUsMain = () => {
     },
     {
       title: "Book a call with a nutritionist 👩‍🔬",
-      image: img.src,
+      image: scheduleImgTwo.src,
       description:
         "Book an appointment with a nutritionist they will you need to choose diet plan for you.",
       subTitle: "Call details provided upon confirmation",

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import img from "@/assets/blog/119A6654-18259.jpg";
+import img from "@/assets/about-us/our-goal.jpg";
 
 interface IOurGoal {
   icon: string;
@@ -9,13 +9,14 @@ interface IOurGoal {
 
 const OurGoal = ({ ourGoalData }: { ourGoalData: IOurGoal[] }) => {
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-20">
+    <div className=" mx-auto  pt-10 pb-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20">
         <div className="w-full lg:order-1 h-full rounded-[32px] overflow-hidden">
           <Image
             className="w-full rounded-[32px] h-full object-cover hover:scale-110 transition-all duration-500"
             src={img}
             alt=""
+            priority
           />
         </div>
         <div>
