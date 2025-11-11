@@ -17,44 +17,7 @@ const OurMealsMain = () => {
       title: "🏋️ Custom Macros",
     },
   ];
-  const menuData = [
-    {
-      image:
-        "https://www.nordicware.com/wp-content/uploads/2021/05/bundt_wood_780x780_03.jpg",
-      name: "Toffee Cake",
-      calory: 282,
-      protein: 3,
-      carbs: 28,
-      fat: 17,
-    },
-    {
-      image:
-        "https://www.nordicware.com/wp-content/uploads/2021/05/bundt_wood_780x780_03.jpg",
-      name: "Tuna and Chickpea Salad",
-      calory: 471,
-      protein: 40,
-      carbs: 16,
-      fat: 28,
-    },
-    {
-      image:
-        "https://www.nordicware.com/wp-content/uploads/2021/05/bundt_wood_780x780_03.jpg",
-      name: "Green Goodness Salmon",
-      calory: 462,
-      protein: 35,
-      carbs: 33,
-      fat: 21,
-    },
-    {
-      image:
-        "https://www.nordicware.com/wp-content/uploads/2021/05/bundt_wood_780x780_03.jpg",
-      name: "Mediterranean Grilled Chicken",
-      calory: 460,
-      protein: 35,
-      carbs: 46,
-      fat: 15,
-    },
-  ];
+
   return (
     <div className="container my-20">
       {/* Heading */}
@@ -90,7 +53,7 @@ const OurMealsMain = () => {
         ))}
       </div>
       {/* Menu Cards */}
-      <MenuCard menuData={menuData} />
+      <MenuCard />
     </div>
   );
 };

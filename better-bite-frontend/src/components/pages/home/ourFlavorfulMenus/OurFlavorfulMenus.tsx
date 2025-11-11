@@ -12,81 +12,130 @@ import fImg10 from "@/assets/flavorful_menu/10.jpg";
 import fImg11 from "@/assets/flavorful_menu/11.jpg";
 import fImg12 from "@/assets/flavorful_menu/12.jpg";
 
+export const menuData = [
+  {
+    id: 1,
+    productName: "Dressed Herring Salad",
+    img: fImg1,
+    desc: "Potatoes, carrots, beet roots, chopped onions and mayonnaise",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 2,
+    productName: "Gado-gado",
+    img: fImg2,
+    desc: "Potato, bean sprouts, spinach, chayote, bitter gourd, corn",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 3,
+    productName: "Tom Yum Soup",
+    img: fImg3,
+    desc: "Loaded with bacon, stuffed with two kinds of cheese",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 4,
+    productName: "Chicken Pizza",
+    img: fImg4,
+    desc: "Loaded with bacon, stuffed with two kinds of cheese",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 5,
+    productName: "Cobb Salad",
+    img: fImg5,
+    desc: "Stuffed with chicken, bacon, avocado, eggs and cheese",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 6,
+    productName: "Cheesy Macaroni",
+    img: fImg6,
+    desc: "Onion, tomato, masala, cheese",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 7,
+    productName: "Risotto",
+    img: fImg7,
+    desc: "White wine, arborio rice, parmesan cheese, butter cheese",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 8,
+    productName: "Potato Croquettes",
+    img: fImg8,
+    desc: "Loaded with bacon, stuffed with two kinds of cheese",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 9,
+    productName: "Spaghetti Bolognese",
+    img: fImg9,
+    desc: "Lean ground beef, red wine, tomato sauce, beef broth",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 10,
+    productName: "Garganelli",
+    img: fImg10,
+    desc: "Portobello mushrooms, white wine, arborio rice, chicken",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 11,
+    productName: "Chicken Escalope",
+    img: fImg11,
+    desc: "Bbq sauce, american garden, chicken breasts, coleslaw",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+  {
+    id: 12,
+    productName: "Waldorf Salad",
+    img: fImg12,
+    desc: "Fresh apples, celery and walnuts, dressed in mayonnaise",
+    carbs: 50,
+    protein: 20,
+    calory: 40,
+    fat: 10,
+  },
+];
+
 const OurFlavorfulMenus = () => {
-  const fMenus = [
-    {
-      id: 1,
-      productName: "Dressed Herring Salad",
-      img: fImg1,
-      desc: "Potatoes, carrots, beet roots, chopped onions and mayonnaise",
-    },
-    {
-      id: 2,
-      productName: "Gado-gado",
-      img: fImg2,
-      desc: "Potato, bean sprouts, spinach, chayote, bitter gourd, corn",
-    },
-    {
-      id: 3,
-      productName: "Tom Yum Soup",
-      img: fImg3,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
-    },
-    {
-      id: 4,
-      productName: "Chicken Pizza",
-      img: fImg4,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
-    },
-    {
-      id: 5,
-      productName: "Cobb Salad",
-      img: fImg5,
-      desc: "Stuffed with chicken, bacon, avocado, eggs and cheese",
-    },
-    {
-      id: 6,
-      productName: "Cheesy Macaroni",
-      img: fImg6,
-      desc: "Onion, tomato, masala, cheese",
-    },
-    {
-      id: 7,
-      productName: "Risotto",
-      img: fImg7,
-      desc: "White wine, arborio rice, parmesan cheese, butter cheese",
-    },
-    {
-      id: 8,
-      productName: "Potato Croquettes",
-      img: fImg8,
-      desc: "Loaded with bacon, stuffed with two kinds of cheese",
-    },
-    {
-      id: 9,
-      productName: "Spaghetti Bolognese",
-      img: fImg9,
-      desc: "Lean ground beef, red wine, tomato sauce, beef broth",
-    },
-    {
-      id: 10,
-      productName: "Garganelli",
-      img: fImg10,
-      desc: "Portobello mushrooms, white wine, arborio rice, chicken",
-    },
-    {
-      id: 11,
-      productName: "Chicken Escalope",
-      img: fImg11,
-      desc: "Bbq sauce, american garden, chicken breasts, coleslaw",
-    },
-    {
-      id: 12,
-      productName: "Waldorf Salad",
-      img: fImg12,
-      desc: "Fresh apples, celery and walnuts, dressed in mayonnaise",
-    },
-  ];
   return (
     <div className="py-10 lg:py-10 relative bg-white">
       <div className="container mx-auto px-4">
@@ -100,7 +149,7 @@ const OurFlavorfulMenus = () => {
           </p>
         </div>
         <div className="flex flex-wrap">
-          {fMenus.map((menu) => (
+          {menuData.map((menu) => (
             <div className="w-full lg:w-6/12" key={menu.id}>
               <div className="mx-4 mb-10 lg:mb-14 fmenu_card">
                 <div className="block md:flex items-center">
