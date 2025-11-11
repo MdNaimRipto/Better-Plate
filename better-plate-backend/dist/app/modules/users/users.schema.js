@@ -27,55 +27,14 @@ exports.usersSchema = new mongoose_1.Schema({
         default: "https://i.ibb.co/dcHVrp8/User-Profile-PNG-Image.png",
     },
     password: { type: String, required: true },
-    uid: { type: String, required: true, unique: true },
-    linkedProviders: {
-        type: [
-            {
-                type: String,
-                enum: user_constant_1.LinkedProvidersEnums,
-            },
-        ],
-        required: true,
-    },
-    location: {
-        latitude: { type: Number, required: true, default: 0 },
-        longitude: { type: Number, required: true, default: 0 },
-        address: { type: String, required: true, default: "Not Updated Yet!" },
-    },
-    dateOfBirth: {
-        date: { type: String, required: true, default: "Not Updated Yet!" },
-        year: { type: String, required: true, default: "Not Updated Yet!" },
-        month: { type: String, required: true, default: "Not Updated Yet!" },
-    },
-    activeStatus: { type: Boolean, required: true, default: false },
+    location: { type: String, required: true, default: "Not Updated Yet!" },
+    activeStatus: { type: Boolean, required: true, default: true },
     role: {
         type: String,
         enum: user_constant_1.RoleEnums,
         required: true,
         default: "USER",
     },
-    gender: {
-        type: String,
-        enum: user_constant_1.GenderTypeEnums,
-        required: true,
-        default: "Not Updated Yet!",
-    },
-    goal: {
-        type: String,
-        enum: user_constant_1.GoalEnums,
-        required: true,
-        default: "Not Updated Yet!",
-    },
-    levelOfActivity: {
-        type: String,
-        enum: user_constant_1.ActivityEnums,
-        required: true,
-        default: "Not Updated Yet!",
-    },
-    height: { type: Number, required: true, default: 0, min: 0 },
-    weight: { type: Number, required: true, default: 0, min: 0 },
-    idealWeight: { type: Number, required: true, default: 0, min: 0 },
-    mustWarnYou: { type: [String], required: true, default: [] },
     accountStatus: {
         type: String,
         enum: user_constant_1.AccountStatusEnums,

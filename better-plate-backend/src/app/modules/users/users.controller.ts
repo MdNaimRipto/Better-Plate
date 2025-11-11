@@ -7,13 +7,15 @@ import { verifyAuthToken } from "../../../util/verifyAuthToken";
 import pick from "../../../shared/shared";
 import { UserFilterableFields } from "./user.constant";
 import { paginationFields } from "../../../constants/pagination.constant";
-import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import { jwtHelpers, setAuthCookie } from "../../../helpers/jwtHelpers";
 
 // User Register
 const userRegister = catchAsync(async (req: Request, res: Response) => {
   const { ...userInfo } = req.body;
 
   const result = await UserService.userRegister(userInfo);
+
+  setAuthCookie(res, result);
 
   sendResponse(res, {
     success: true,
@@ -28,6 +30,8 @@ const userLogin = catchAsync(async (req: Request, res: Response) => {
   const { ...authCredentials } = req.body;
 
   const result = await UserService.userLogin(authCredentials);
+
+  setAuthCookie(res, result);
 
   sendResponse(res, {
     success: true,
@@ -52,6 +56,18 @@ const getAuthenticatedUserDetails = catchAsync(
     });
   },
 );
+
+// Logout
+const logout = catchAsync(async (req: Request, res: Response) => {
+  await UserService.logout(res);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "User Logged Out Successfully",
+    data: null,
+  });
+});
 
 // Update User
 const updatedUser = catchAsync(async (req: Request, res: Response) => {
@@ -113,6 +129,7 @@ export const UserController = {
   userRegister,
   userLogin,
   getAuthenticatedUserDetails,
+  logout,
   updatedUser,
   updatePassword,
   getAllUsers,

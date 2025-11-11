@@ -19,6 +19,8 @@ router.post(
 
 router.get("/me", UserController.getAuthenticatedUserDetails);
 
+router.post("/logout", UserController.logout);
+
 router.patch(
   "/updateUser",
   zodValidationRequest(UserValidation.userUpdateZodSchema),

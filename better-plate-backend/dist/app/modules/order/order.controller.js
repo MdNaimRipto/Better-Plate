@@ -20,11 +20,13 @@ const order_service_1 = require("./order.service");
 const shared_1 = __importDefault(require("../../../shared/shared"));
 const order_constant_1 = require("./order.constant");
 const pagination_constant_1 = require("../../../constants/pagination.constant");
+const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
 // All Orders
 const getAllOrders = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const filters = (0, shared_1.default)(req.query, order_constant_1.OrderFilterableFields);
     const options = (0, shared_1.default)(req.query, pagination_constant_1.paginationFields);
-    const result = yield order_service_1.OrderService.getAllOrders(filters, options);
+    const token = jwtHelpers_1.jwtHelpers.verifyAuthToken(req);
+    const result = yield order_service_1.OrderService.getAllOrders(filters, options, token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -34,8 +36,8 @@ const getAllOrders = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
 }));
 // User Orders
 const getUserOrders = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, phone } = req.query;
-    const result = yield order_service_1.OrderService.getUserOrders(email, phone);
+    const token = jwtHelpers_1.jwtHelpers.verifyAuthToken(req);
+    const result = yield order_service_1.OrderService.getUserOrders(token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,

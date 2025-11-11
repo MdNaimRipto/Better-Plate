@@ -19,12 +19,18 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderService = void 0;
 const paginationHelpers_1 = require("../../../helpers/paginationHelpers");
 const order_constant_1 = require("./order.constant");
 const order_schema_1 = require("./order.schema");
-const getAllOrders = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {
+const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
+const config_1 = __importDefault(require("../../../config/config"));
+const getAllOrders = (filters, paginationOptions, accessToken) => __awaiter(void 0, void 0, void 0, function* () {
+    jwtHelpers_1.jwtHelpers.jwtVerify(accessToken, config_1.default.jwt_access_secret);
     const { searchTerm } = filters, filterData = __rest(filters, ["searchTerm"]);
     const andConditions = [];
     if (searchTerm) {
@@ -80,11 +86,11 @@ const getAllOrders = (filters, paginationOptions) => __awaiter(void 0, void 0, v
         data: result,
     };
 });
-const getUserOrders = (email, phone) => __awaiter(void 0, void 0, void 0, function* () {
+const getUserOrders = (accessToken) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = jwtHelpers_1.jwtHelpers.jwtVerify(accessToken, config_1.default.jwt_access_secret);
     const result = yield order_schema_1.Orders.find({
-        $and: [{ "customer.email": email }, { "customer.phone": phone }],
+        $and: [{ "customer.email": email }],
     }).populate("packageInfo");
-    console.log(result);
     return result;
 });
 const updateOrderStatus = (id, status) => __awaiter(void 0, void 0, void 0, function* () {

@@ -1,6 +1,7 @@
 "use client";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { useState } from "react";
+import { usePlans } from "../PlansProvider";
 
 interface IPlans {
   title: string;
@@ -9,8 +10,9 @@ interface IPlans {
 }
 
 const SelectMeal = () => {
+  const { setPlanType } = usePlans();
+
   const [selected, setSelected] = useState(0);
-  console.log({ selected });
 
   const plans: IPlans[] = [
     {
@@ -59,7 +61,10 @@ const SelectMeal = () => {
                 ? "border-primary bg-primary/5"
                 : "border-lightGray bg-white"
             } duration-300`}
-            onClick={() => setSelected(i + 1)}
+            onClick={() => {
+              setSelected(i + 1);
+              setPlanType(plan.title);
+            }}
           >
             <div className="flex items-center gap-6">
               <div className="w-4/5">

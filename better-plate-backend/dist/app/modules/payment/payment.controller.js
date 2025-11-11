@@ -29,9 +29,9 @@ const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const http_status_1 = __importDefault(require("http-status"));
 const payment_service_1 = require("./payment.service");
 // Make Payment
-const makePayment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createPaymentLink = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = __rest(req.body, []);
-    const result = yield payment_service_1.PaymentService.makePayment(payload);
+    const result = yield payment_service_1.PaymentService.createPaymentLink(payload);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -40,5 +40,5 @@ const makePayment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
     });
 }));
 exports.PaymentController = {
-    makePayment,
+    createPaymentLink,
 };

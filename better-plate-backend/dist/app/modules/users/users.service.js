@@ -27,32 +27,22 @@ exports.UserService = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const users_schema_1 = require("./users.schema");
-const users_utils_1 = require("./users.utils");
-const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
 const config_1 = __importDefault(require("../../../config/config"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const crypto_1 = __importDefault(require("crypto"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const redis_1 = require("@upstash/redis");
 const user_constant_1 = require("./user.constant");
 const paginationHelpers_1 = require("../../../helpers/paginationHelpers");
+const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
 //* User Register Custom
-const userRegister = (payload, redirectUrl) => __awaiter(void 0, void 0, void 0, function* () {
+const userRegister = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, contactNumber } = payload;
     const isExistsUser = yield users_schema_1.Users.findOne({
-        $or: [{ email }, { contactNumber }],
+        $or: [{ email: email.toLowerCase() }, { contactNumber }],
     });
     if (isExistsUser) {
         throw new ApiError_1.default(http_status_1.default.CONFLICT, "Email or Contact Already Exists. Please Check Email And Verify Your Account!");
     }
-    const uid = (0, users_utils_1.generateUID)();
-    const isUIDExists = yield users_schema_1.Users.findOne({ uid: uid });
-    if (isUIDExists) {
-        throw new ApiError_1.default(http_status_1.default.CONFLICT, "Something went wrong! Please try again");
-    }
-    payload.uid = uid;
-    payload.linkedProviders = ["CUSTOM"];
-    const user = yield users_schema_1.Users.create(payload);
+    const user = yield users_schema_1.Users.create(Object.assign(Object.assign({}, payload), { email: email.toLowerCase() }));
     const transporter = nodemailer_1.default.createTransport({
         host: "smtp.gmail.com",
         // host: "smtp.office365.com",
@@ -65,79 +55,62 @@ const userRegister = (payload, redirectUrl) => __awaiter(void 0, void 0, void 0,
     });
     yield transporter.sendMail({
         to: email,
-        subject: "Welcome to My Target! Please Verify Your Email",
+        subject: "Welcome to Better Plate!",
         html: `
-    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
-      <h2 style="color: #27ae60; text-align: center;">Welcome to My Target!</h2>
-      <p>Hello ${user.userName},</p>
-      <p>Thank you for registering with My Target. We're excited to have you join our community!</p>
+  <div style="font-family: Arial, sans-serif; color: #3a3a3a; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e7e6e6; border-radius: 8px; background-color: #ffffff;">
+    <h2 style="color: #c00a27; text-align: center;">Welcome to Better Plate!</h2>
 
-      <p>Please verify your email address by clicking the link below:</p>
+    <p>Hello ${user.userName},</p>
 
-      <div style="text-align: center; margin: 20px 0;">
-        <a
-          href="${redirectUrl
-            ? `https://calo-demo.vercel.app/auth/verify?email=${user.email}&uid=${user.uid}&redirectUrl=${redirectUrl}`
-            : `https://calo-demo.vercel.app/auth/verify?email=${user.email}&uid=${user.uid}`}"
-          style="display: inline-block; padding: 10px 20px; color: #fff; background-color: #27ae60; text-decoration: none; border-radius: 4px; font-size: 16px;">
-          Verify email
-        </a>
-      </div>
+    <p>
+      Thank you for joining <strong>Better Plate</strong> — your companion for balanced meals and smarter nutrition choices. We’re excited to have you onboard!
+    </p>
 
-      <p>If you didn’t create an account with My Target, please ignore this email.</p>
+    <p>
+      You can now explore delicious recipes, track your meals, and discover insights that help you maintain a healthier lifestyle.
+    </p>
 
-      <p>Best wishes,<br>My Target Team</p>
-
-      <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-      <p style="font-size: 12px; color: #777;">This is an automated message, please do not reply to this email.</p>
+    <div style="text-align: center; margin: 25px 0;">
+      <a
+        href="https://betterplate.vercel.app"
+        style="display: inline-block; padding: 12px 26px; color: #ffffff; background-color: #c00a27; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold; transition: background-color 0.3s ease;">
+        Visit Better Plate
+      </a>
     </div>
+
+    <p>
+      If you didn’t sign up for Better Plate, please disregard this email — no action is required.
+    </p>
+
+    <p style="margin-top: 30px;">
+      Cheers,<br>
+      <strong>The Better Plate Team</strong>
+    </p>
+
+    <hr style="border: none; border-top: 1px solid #e7e6e6; margin: 25px 0;">
+
+    <p style="font-size: 12px; color: #686464; text-align: center;">
+      This is an automated message — please do not reply.<br>
+      &copy; ${new Date().getFullYear()} Better Plate. All rights reserved.
+    </p>
+  </div>
   `,
     });
-    return null;
-});
-// * Verify User
-const verifyUser = (email, uid) => __awaiter(void 0, void 0, void 0, function* () {
-    const isUserExists = yield users_schema_1.Users.findOne({
-        $and: [{ email }, { uid }],
-    });
-    if (!isUserExists) {
-        throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "User Dose not Exists!");
-    }
-    if (isUserExists.activeStatus === true) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Account Already Verified!");
-    }
-    yield users_schema_1.Users.findOneAndUpdate({ $and: [{ email }, { uid }] }, { activeStatus: true }, {
-        new: true,
-    });
-    return null;
-});
-// *
-const updateMandatoryProfileItems = (email, uid, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const isUserExists = yield users_schema_1.Users.findOne({
-        $and: [{ email }, { uid }],
-    });
-    if (!isUserExists) {
-        throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "User Dose not Exists!");
-    }
-    const { gender, goal, height, idealWeight, levelOfActivity, mustWarnYou, weight, } = payload;
-    if (gender === undefined ||
-        goal === undefined ||
-        height === undefined ||
-        idealWeight === undefined ||
-        levelOfActivity === undefined ||
-        mustWarnYou === undefined ||
-        weight === undefined) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Please Select All Fields To Update Profile!");
-    }
-    const result = yield users_schema_1.Users.findOneAndUpdate({ $and: [{ email }, { uid }] }, payload, {
-        new: true,
-    });
-    return (0, users_utils_1.generateAuthToken)(result);
+    const jwtPayload = {
+        email: user.email,
+        id: user._id,
+    };
+    const accessToken = jwtHelpers_1.jwtHelpers.createToken(jwtPayload, config_1.default.jwt_access_secret, config_1.default.jwt_access_expires_in);
+    const refreshToken = jwtHelpers_1.jwtHelpers.createToken(jwtPayload, config_1.default.jwt_refresh_secret, config_1.default.jwt_refresh_expires_in);
+    return {
+        accessToken,
+        refreshToken,
+    };
 });
 //* User Login Custom
 const userLogin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = payload;
-    const isExists = yield users_schema_1.Users.findOne({ email: email });
+    const isExists = yield users_schema_1.Users.findOne({ email: email.toLowerCase() });
     if (!isExists) {
         throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "Invalid Email Or Password");
     }
@@ -151,64 +124,56 @@ const userLogin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (!checkPassword) {
         throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "Invalid Email Or Password");
     }
-    return (0, users_utils_1.generateAuthToken)(isExists);
+    const jwtPayload = {
+        email: isExists.email,
+        id: isExists._id,
+    };
+    const accessToken = jwtHelpers_1.jwtHelpers.createToken(jwtPayload, config_1.default.jwt_access_secret, config_1.default.jwt_access_expires_in);
+    const refreshToken = jwtHelpers_1.jwtHelpers.createToken(jwtPayload, config_1.default.jwt_refresh_secret, config_1.default.jwt_refresh_expires_in);
+    return {
+        accessToken,
+        refreshToken,
+    };
 });
-//* Check User for Provider Login
-const checkUserForProviderLogin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const { authMethod, email } = payload;
-    const isExistsUser = yield users_schema_1.Users.findOne({ email });
-    if (!isExistsUser) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "User Dose Not Exists!");
-    }
-    const linkedProviders = isExistsUser.linkedProviders;
-    if (isExistsUser && !linkedProviders.includes(authMethod)) {
-        linkedProviders.push(authMethod);
-        const updatedUser = yield users_schema_1.Users.findOneAndUpdate({ email }, isExistsUser, {
-            new: true,
-        });
-        return (0, users_utils_1.generateAuthToken)(updatedUser);
-    }
-    if (isExistsUser && linkedProviders.includes(authMethod)) {
-        return (0, users_utils_1.generateAuthToken)(isExistsUser);
-    }
+// * Get Authenticated User Access
+const getAuthenticatedUserDetails = (accessToken) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, email } = jwtHelpers_1.jwtHelpers.jwtVerify(accessToken, config_1.default.jwt_access_secret);
+    const result = yield users_schema_1.Users.findOne({
+        _id: id,
+        email: email.toLowerCase(),
+    }).select("-password");
+    return !result
+        ? null
+        : {
+            userName: String(result === null || result === void 0 ? void 0 : result.userName),
+            email: String(result === null || result === void 0 ? void 0 : result.email),
+            contactNumber: String(result === null || result === void 0 ? void 0 : result.contactNumber),
+        };
+});
+// * Logout
+const logout = (res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(res.cookie);
+    res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+    });
+    res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+    });
     return null;
 });
-//* Provider Login
-const providerLogin = (payload, authMethod) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = payload;
-    const isExistsUser = yield users_schema_1.Users.findOne({ email });
-    if (isExistsUser) {
-        const linkedProviders = isExistsUser.linkedProviders;
-        if (!linkedProviders.includes(authMethod)) {
-            linkedProviders.push(authMethod);
-            const updatedUser = yield users_schema_1.Users.findOneAndUpdate({ email }, isExistsUser, {
-                new: true,
-            });
-            return (0, users_utils_1.generateAuthToken)(updatedUser);
-        }
-        if (linkedProviders.includes(authMethod)) {
-            return (0, users_utils_1.generateAuthToken)(isExistsUser);
-        }
-    }
-    const uid = (0, users_utils_1.generateUID)();
-    const isUIDExists = yield users_schema_1.Users.findOne({ uid: uid });
-    if (isUIDExists) {
-        throw new ApiError_1.default(http_status_1.default.CONFLICT, "Something went wrong! Please try again");
-    }
-    payload.uid = uid;
-    payload.linkedProviders = ["CUSTOM", authMethod];
-    const user = yield users_schema_1.Users.create(payload);
-    return (0, users_utils_1.generateAuthToken)(user);
-});
 //* Update User
-const updateUser = (userID, payload, token) => __awaiter(void 0, void 0, void 0, function* () {
-    jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_secret);
+const updateUser = (payload, token) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id: userID } = jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_access_secret);
     const isExistsUser = yield users_schema_1.Users.findById({ _id: userID });
     if (!isExistsUser) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "User Not Found");
     }
-    const { uid, password, location, dateOfBirth } = payload, updatePayload = __rest(payload, ["uid", "password", "location", "dateOfBirth"]);
-    if (uid !== undefined || password !== undefined) {
+    const { password, role } = payload, updatePayload = __rest(payload, ["password", "role"]);
+    if (password !== undefined || role !== undefined) {
         throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "Permission Denied! Please Try Again.");
     }
     if (payload.email) {
@@ -227,29 +192,15 @@ const updateUser = (userID, payload, token) => __awaiter(void 0, void 0, void 0,
         }
         updatePayload.contactNumber = payload.contactNumber;
     }
-    if (location && Object.keys(location).length > 0) {
-        Object.keys(location).map(key => {
-            const locationsKey = `location.${key}`;
-            updatePayload[locationsKey] =
-                location[key];
-        });
-    }
-    if (dateOfBirth && Object.keys(dateOfBirth).length > 0) {
-        Object.keys(dateOfBirth).map(key => {
-            const locationsKey = `dateOfBirth.${key}`;
-            updatePayload[locationsKey] =
-                dateOfBirth[key];
-        });
-    }
-    const user = yield users_schema_1.Users.findOneAndUpdate({ _id: userID }, updatePayload, {
+    yield users_schema_1.Users.findOneAndUpdate({ _id: userID }, updatePayload, {
         new: true,
     });
-    return (0, users_utils_1.generateAuthToken)(user);
+    return null;
 });
 // * For Updating the password
 const updatePassword = (payload, token) => __awaiter(void 0, void 0, void 0, function* () {
-    jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_secret);
-    const { userId, currentPassword, newPassword, confirmPassword } = payload;
+    const { id: userId } = jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_access_secret);
+    const { currentPassword, newPassword, confirmPassword } = payload;
     const isExistsUser = yield users_schema_1.Users.findById({ _id: userId });
     if (!isExistsUser) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "User Not Found");
@@ -267,104 +218,9 @@ const updatePassword = (payload, token) => __awaiter(void 0, void 0, void 0, fun
     }
     const pass = yield bcrypt_1.default.hash(newPassword, Number(config_1.default.salt_round));
     isExistsUser.password = pass;
-    const user = yield users_schema_1.Users.findOneAndUpdate({ _id: userId }, isExistsUser, {
+    yield users_schema_1.Users.findOneAndUpdate({ _id: userId }, isExistsUser, {
         new: true,
     });
-    return (0, users_utils_1.generateAuthToken)(user);
-});
-//* Forgot Password Part-1 Find user via email
-const findUserForForgotPassword = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield users_schema_1.Users.findOne({ email: email }, {
-        _id: 0,
-        email: 1,
-    }).lean();
-    if (!user) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Invalid User!");
-    }
-    const redis = new redis_1.Redis({
-        url: config_1.default.redis_host,
-        token: config_1.default.redis_password,
-    });
-    const otp = crypto_1.default.randomInt(100000, 999999).toString();
-    const dataToEncrypt = JSON.stringify({ otp: otp, verified: false });
-    const encryptData = (0, users_utils_1.encryptForgotPasswordResponse)(dataToEncrypt);
-    yield redis.set(email, encryptData, { ex: 180 });
-    const transporter = nodemailer_1.default.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        auth: {
-            user: config_1.default.nodemailer_user,
-            pass: config_1.default.nodemailer_pass,
-        },
-    });
-    yield transporter.sendMail({
-        to: email,
-        subject: "OTP For Reset Password",
-        text: `Your OTP is ${otp}`,
-    });
-    return user;
-});
-//* Forgot Password Part-2
-const verifyOtpForForgotPassword = (email, otp) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield users_schema_1.Users.findOne({ email: email }, {
-        _id: 0,
-        email: 1,
-    }).lean();
-    if (!user) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Invalid User!");
-    }
-    const redis = new redis_1.Redis({
-        url: config_1.default.redis_host,
-        token: config_1.default.redis_password,
-    });
-    const encryptData = yield redis.get(email);
-    if (!encryptData) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "OTP expired or not found.");
-    }
-    const decryptedData = (0, users_utils_1.decryptForgotPasswordResponse)(encryptData);
-    const { otp: storedOtp, verified } = JSON.parse(decryptedData);
-    if (Number(storedOtp) !== Number(otp)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Invalid OTP!");
-    }
-    if (verified === true) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "OTP Already Verified!");
-    }
-    const updatedData = JSON.stringify({ otp: storedOtp, verified: true });
-    const encryptUpdatedData = (0, users_utils_1.encryptForgotPasswordResponse)(updatedData);
-    yield redis.set(email, encryptUpdatedData, { ex: 180 });
-    return { message: "OTP verified successfully." };
-});
-//* Forgot Password Part-3
-const forgotPassword = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = payload;
-    const isExistsUser = yield users_schema_1.Users.findOne({ email: email });
-    if (!isExistsUser) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Invalid User!");
-    }
-    const redis = new redis_1.Redis({
-        url: config_1.default.redis_host,
-        token: config_1.default.redis_password,
-    });
-    const encryptedRedisResponse = yield redis.get(email);
-    if (!encryptedRedisResponse) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Failed to Update! Please try again.");
-    }
-    const decryptedData = (0, users_utils_1.decryptForgotPasswordResponse)(encryptedRedisResponse);
-    const { verified } = JSON.parse(decryptedData);
-    if (verified !== true) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Failed to Update! Please try again.");
-    }
-    const isPreviousPass = yield bcrypt_1.default.compare(password, isExistsUser.password);
-    if (isPreviousPass) {
-        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, "New Password Cannot be The Previous Password");
-    }
-    const newPass = yield bcrypt_1.default.hash(password, Number(config_1.default.salt_round));
-    payload.password = newPass;
-    yield users_schema_1.Users.findOneAndUpdate({ email: email }, payload, {
-        new: true,
-    });
-    yield redis.del(email);
     return null;
 });
 //* Get All Users
@@ -424,16 +280,11 @@ const deleteUser = (_a) => __awaiter(void 0, [_a], void 0, function* ({ id }) {
 });
 exports.UserService = {
     userRegister,
-    verifyUser,
-    updateMandatoryProfileItems,
     userLogin,
-    checkUserForProviderLogin,
-    providerLogin,
+    getAuthenticatedUserDetails,
+    logout,
     updateUser,
     updatePassword,
-    findUserForForgotPassword,
-    verifyOtpForForgotPassword,
-    forgotPassword,
     getAllUsers,
     deleteUser,
 };

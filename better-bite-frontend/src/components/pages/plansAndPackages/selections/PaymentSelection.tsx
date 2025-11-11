@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { usePlans } from "../PlansProvider";
 
 interface IPlans {
   title: "Weekly" | "Monthly" | "3_Month";
@@ -9,6 +10,8 @@ interface IPlans {
 }
 
 const PaymentSelection = () => {
+  const { setAmount, setTotalDays } = usePlans();
+
   const [selected, setSelected] = useState<IPlans["title"]>("Monthly");
 
   const plans: IPlans[] = [
@@ -32,7 +35,19 @@ const PaymentSelection = () => {
     },
   ];
 
-  const handleSelect = (title: IPlans["title"]) => setSelected(title);
+  const handleSelect = (title: IPlans["title"], perPrice: number) => {
+    setSelected(title);
+    setAmount(perPrice);
+    const totalDays =
+      title === "Weekly"
+        ? 7
+        : title === "Monthly"
+        ? 30
+        : title === "3_Month"
+        ? 90
+        : 30;
+    setTotalDays(totalDays);
+  };
 
   return (
     <div className="w-full md:w-3/4">
@@ -49,7 +64,7 @@ const PaymentSelection = () => {
                 ? "border-primary bg-primary/5"
                 : "border-lightGray bg-white"
             }`}
-            onClick={() => handleSelect(plan.title)}
+            onClick={() => handleSelect(plan.title, plan.perPrice)}
           >
             <div className="flex items-center justify-between gap-6">
               <div>

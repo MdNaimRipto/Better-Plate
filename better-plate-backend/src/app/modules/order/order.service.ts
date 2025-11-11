@@ -7,11 +7,15 @@ import {
 import { OrderSearchableFields } from "./order.constant";
 import { currentStatusEnums, IOrder, IOrderFilters } from "./order.interface";
 import { Orders } from "./order.schema";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import config from "../../../config/config";
 
 const getAllOrders = async (
   filters: IOrderFilters,
   paginationOptions: IPaginationOptions,
+  accessToken: string,
 ): Promise<IGenericPaginationResponse<IOrder[]>> => {
+  jwtHelpers.jwtVerify(accessToken, config.jwt_access_secret);
   const { searchTerm, ...filterData } = filters;
   const andConditions = [];
   if (searchTerm) {
@@ -77,12 +81,11 @@ const getAllOrders = async (
   };
 };
 
-const getUserOrders = async (email: string, phone: string) => {
+const getUserOrders = async (accessToken: string) => {
+  const { email } = jwtHelpers.jwtVerify(accessToken, config.jwt_access_secret);
   const result = await Orders.find({
-    $and: [{ "customer.email": email }, { "customer.phone": phone }],
+    $and: [{ "customer.email": email }],
   }).populate("packageInfo");
-
-  console.log(result);
 
   return result;
 };

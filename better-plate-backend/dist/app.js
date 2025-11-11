@@ -19,15 +19,29 @@ const globalErrorHandler_1 = __importDefault(require("./middlewares/globalErrorH
 const pathNotFoundErrorHandler_1 = __importDefault(require("./errors/pathNotFoundErrorHandler"));
 const router_1 = require("./app/routes/router");
 const payment_service_1 = require("./app/modules/payment/payment.service");
+const express_session_1 = __importDefault(require("express-session"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const config_1 = __importDefault(require("./config/config"));
 const app = (0, express_1.default)();
+// ? Payment
+app.post("/webhook", express_1.default.raw({ type: "application/json" }), payment_service_1.PaymentService.handleStripeWebhook);
 // ? Middlewares:
-app.use((0, cors_1.default)());
+app.use((0, express_session_1.default)({
+    secret: config_1.default.EXPRESS_SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use((0, cors_1.default)({
+    origin: config_1.default.FRONTEND_URL,
+    credentials: true,
+}));
 // * Basic Page
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(http_status_1.default.OK).send({
-        message: "Calo Server Running Successfully",
+        message: "Better Plate Server Running Successfully",
         statusCode: http_status_1.default.OK,
     });
 }));
@@ -37,8 +51,6 @@ app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 // })();
 //* Main endpoint
 app.use("/v1.0.0/apis", router_1.Routers);
-app.post("/v1.0.0/apis/telr-webhook", payment_service_1.PaymentService.getPaymentDetails);
-// * Payment
 //* Global error Handler
 app.use(globalErrorHandler_1.default);
 //* Path Not Found Error Handler
