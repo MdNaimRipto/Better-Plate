@@ -12,7 +12,7 @@ const ErrorPage = ({
     console.log(error);
   }, [error]);
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center gap-4">
+    <div className="container min-h-screen flex flex-col justify-center items-center gap-4">
       <h3 className="text-2xl font-semibold text-red-600">
         Something went wrong
       </h3>

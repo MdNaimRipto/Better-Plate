@@ -16,7 +16,7 @@ const ResponsiveMenuHandlerButton = ({
   } group-hover:bg-primary absolute left-0 duration-700`;
   return (
     <button
-      className="p-[0.3px] w-[26px] h-[20px] hover:cursor-pointer lg:hidden"
+      className="p-[0.3px] w-[26px] h-[20px] hover:cursor-pointer xl:hidden"
       ref={togglerRef}
       onClick={() => setIsNavOpen(!isNavOpen)}
       // sx={{

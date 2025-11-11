@@ -7,19 +7,21 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
-    colors: {
-      primary: "#c00a27",
-      secondary: "#f4b618",
-      white: "#ffffff",
-      coal: "#1a1a1a",
-      black: "#3a3a3a",
-      gray: "#686464",
-      lightGray: "#e7e6e6",
-      info: "#2F80ED",
-      success: "#219653",
-      error: "#EB5757",
+    extend: {
+      colors: {
+        primary: "#c00a27",
+        secondary: "#f4b618",
+        white: "#ffffff",
+        coal: "#1a1a1a",
+        black: "#3a3a3a",
+        gray: "#686464",
+        lightGray: "#e7e6e6",
+        info: "#2F80ED",
+        success: "#219653",
+        error: "#EB5757",
+      },
     },
+
 
     container: {
       center: true,

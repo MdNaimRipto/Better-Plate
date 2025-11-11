@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const NotFoundPage = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center gap-4">
+    <div className="container min-h-screen flex flex-col justify-center items-center gap-4">
       <p>
         <span className="text-xl">Oops!</span> We can&apos;t seem to find the
         page you&apos;re looking for.
