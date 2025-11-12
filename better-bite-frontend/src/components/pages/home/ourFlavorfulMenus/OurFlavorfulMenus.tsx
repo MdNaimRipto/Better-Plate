@@ -153,11 +153,13 @@ const OurFlavorfulMenus = () => {
             <div className="w-full lg:w-6/12" key={menu.id}>
               <div className="mx-4 mb-10 lg:mb-14 fmenu_card">
                 <div className="block md:flex items-center">
-                  <Image
-                    src={menu.img}
-                    alt=""
-                    className="mx-auto md:mx-0 mb-6 lg:mb-0"
-                  />
+                  <div className="w-[180px] md:w-[120px] h-[180px] md:h-[120px] overflow-hidden mx-auto md:mx-0 mb-6 lg:mb-0">
+                    <Image
+                      src={menu.img}
+                      alt=""
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                   <div className="ml-5 ">
                     <div className="flex items-center ">
                       <h3 className="text-[1rem] lg:text-xl lg:font-medium font-semibold text-primary mb-4">

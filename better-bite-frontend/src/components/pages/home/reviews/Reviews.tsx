@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import paper from "@/assets/Common/paper-design.webp";
+import paper from "@/assets/paper.webp";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
-// import bg1 from "@/assets/banner/banner-3.jpg";
+import { FaUserLarge } from "react-icons/fa6";
 
 const Reviews = () => {
   const reviews = [
@@ -91,7 +91,9 @@ const Reviews = () => {
                 <span className="block w-full h-[.6px] bg-gray/20"></span>
                 <div className="flex items-center gap-2">
                   <div className="w-14 h-14 rounded-full border border-gray/30 flex items-center justify-center">
-                    <div className="w-[90%] h-[90%] bg-gray/30 rounded-full"></div>
+                    <div className="w-[90%] h-[90%] bg-gray/30 rounded-full flex items-center justify-center">
+                      <FaUserLarge size={28} color="#ffffff" />
+                    </div>
                   </div>
                   <div className="flex flex-col gap-3 text-sm">
                     <p>{review.name}</p>

@@ -60,7 +60,7 @@ const NavSideOptions = ({
         <>
           <Link href="/user">
             <button
-              className={`font-semibold transition-all duration-700 border px-[10px] py-[6px] sm:px-[20px] sm:py-[8px] text-[8px] sm:text-[12px] rounded ${
+              className={`font-semibold transition-all duration-700 border px-[20px] py-[8px] text-[10px] md:text-[12px] rounded ${
                 !isScrolled && isHomePage
                   ? "border-white text-white"
                   : "border-black text-black"

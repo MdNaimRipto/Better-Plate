@@ -1,7 +1,4 @@
 import Link from "next/link";
-import React from "react";
-import logo from "@/assets/logo-bg-none.png";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NavMenuItems = ({
@@ -19,35 +16,29 @@ const NavMenuItems = ({
 
   const menuItems = [
     {
-      item: pathName.startsWith("/ar") ? "بيت" : "Home",
-      path: pathName.startsWith("/ar")
-        ? "/ar"
-        : pathName.startsWith("/en")
-        ? "/en"
-        : "/",
+      item: "Home",
+      path: "/",
       opacityDelay: ".4s",
     },
 
     {
-      item: pathName.startsWith("/ar") ? "الخطط والحزم" : "Plans & Packages",
-      path: pathName.startsWith("/ar")
-        ? "/ar/plansAndPackages"
-        : "/en/plansAndPackages",
+      item: "Plans & Packages",
+      path: "/plansAndPackages",
       opacityDelay: ".5s",
     },
     {
-      item: pathName.startsWith("/ar") ? "وجباتنا" : "Our Meals",
-      path: pathName.startsWith("/ar") ? "/ar/menu" : "/en/our-meals",
+      item: "Our Meals",
+      path: "/our-meals",
       opacityDelay: ".6s",
     },
     {
-      item: pathName.startsWith("/ar") ? "مدونة" : "About Us",
-      path: pathName.startsWith("/ar") ? "/ar/about-us" : "/en/about-us",
+      item: "About Us",
+      path: "/about-us",
       opacityDelay: ".7s",
     },
     {
-      item: pathName.startsWith("/ar") ? "مدونة" : "Blog",
-      path: pathName.startsWith("/ar") ? "/ar/blog" : "/en/blog",
+      item: "Blog",
+      path: "/blog",
       opacityDelay: ".8s",
     },
   ];
@@ -60,19 +51,6 @@ const NavMenuItems = ({
           : "-left-[1000px] w-0 h-0 xl:h-[80px] xl:w-full"
       } duration-700 ease-in-out`}
     >
-      <div className="flex xl:hidden items-start justify-between w-full pr-5 mb-3">
-        <div></div>
-        <Link href="/" onClick={() => setIsNavOpen(false)}>
-          <Image
-            src={logo.src}
-            width={400}
-            height={400}
-            className="w-[170px]"
-            alt="Logo"
-            priority
-          />
-        </Link>
-      </div>
       {menuItems.map((menu, i) => (
         <Link
           onClick={() => setIsNavOpen(false)}

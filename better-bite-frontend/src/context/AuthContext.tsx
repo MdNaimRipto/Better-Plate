@@ -25,8 +25,6 @@ const AuthContext = ({ children }: { children: ReactNode }) => {
     user: user ? user : null,
   };
 
-  console.log({ user });
-
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 export default AuthContext;

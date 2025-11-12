@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MenuCard from "./menuCard/MenuCard";
 
 const OurMealsMain = () => {
@@ -31,11 +32,11 @@ const OurMealsMain = () => {
           Here&apos;s a taste of what&apos;s included when you subscribe to
           Better Plate
         </p>
-        <div className="mt-4">
+        <Link href="/plansAndPackages" className="mt-4">
           <button className="text-primary hover:text-secondary text-xs md:text-sm font-semibold border border-primary hover:border-secondary rounded-lg py-3 px-6 transition duration-500">
             Order now
           </button>
-        </div>
+        </Link>
       </div>
       {/* Filter buttons */}
       <div className="flex flex-wrap items-center gap-3">

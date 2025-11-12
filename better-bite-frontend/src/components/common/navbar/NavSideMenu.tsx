@@ -1,9 +1,8 @@
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
-import logo from "@/assets/my-target-logo.png";
+import React, { useEffect, useRef } from "react";
+import logo from "@/assets/logo.svg";
 import Image from "next/image";
-import { TfiWorld } from "react-icons/tfi";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { IoMdClose as CloseMenuIcon } from "react-icons/io";
 
 const NavSideMenu = ({
@@ -15,63 +14,36 @@ const NavSideMenu = ({
   setIsNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
   togglerRef: React.RefObject<HTMLButtonElement | null>;
 }) => {
-  const [languageToggler, setLanguageToggler] = useState(false);
-
   const pathname = usePathname();
-  const router = useRouter();
 
   const menuRef = useRef<HTMLUListElement>(null);
 
-  const pathName = pathname;
-
-  const toggleLanguage = ({ newLang }: { newLang: string }) => {
-    // Extract the language part from the pathname
-    const parts = pathname.split("/").filter(Boolean); // Remove empty strings
-    const currentLang = parts[0]; // First part is the language
-
-    // Construct new path with toggled language
-    const newPath = [`/${newLang}`, ...parts.slice(1)].join("/");
-
-    // Navigate to the new path
-    router.push(newPath);
-  };
-
   const menuItems = [
     {
-      item: pathName.startsWith("/ar") ? "بيت" : "Home",
-      path: pathName.startsWith("/ar") ? "/ar" : "/en",
+      item: "Home",
+      path: "/",
       opacityDelay: ".4s",
     },
+
     {
-      item: pathName.startsWith("/ar") ? "مدونة" : "Blog",
-      path: pathName.startsWith("/ar") ? "/ar/blog" : "/en/blog",
-      opacityDelay: ".7s",
-    },
-    {
-      item: pathName.startsWith("/ar") ? "وجباتنا" : "Our Meals",
-      path: pathName.startsWith("/ar") ? "/ar/menu" : "/en/menu",
+      item: "Plans & Packages",
+      path: "/plansAndPackages",
       opacityDelay: ".5s",
     },
     {
-      item: pathName.startsWith("/ar") ? "الخطط والحزم" : "Plans & Packages",
-      path: pathName.startsWith("/ar")
-        ? "/ar/plansAndPackages"
-        : "/en/plansAndPackages",
+      item: "Our Meals",
+      path: "/our-meals",
       opacityDelay: ".6s",
     },
-    // {
-    //   item: pathName.startsWith("/ar") ? "المشاورات" : "Consultations",
-    //   path: pathName.startsWith("/ar")
-    //     ? "/ar/consultations"
-    //     : "/en/consultations",
-    //   opacityDelay: ".8s",
-    // },
     {
-      item: pathName.startsWith("/ar") ? "الشراكات" : "Partnerships",
-      path: pathName.startsWith("/ar")
-        ? "/ar/partnerships"
-        : "/en/partnerships",
-      opacityDelay: ".9s",
+      item: "About Us",
+      path: "/about-us",
+      opacityDelay: ".7s",
+    },
+    {
+      item: "Blog",
+      path: "/blog",
+      opacityDelay: ".8s",
     },
   ];
 
@@ -119,12 +91,16 @@ const NavSideMenu = ({
     >
       <div className="flex items-start justify-between w-full pr-5 mb-3">
         <div></div>
-        <Link href="/" onClick={() => setIsNavOpen(false)}>
+        <Link
+          href="/"
+          onClick={() => setIsNavOpen(false)}
+          className="w-full h-[60px] overflow-hidden"
+        >
           <Image
             src={logo.src}
             width={200}
             height={200}
-            className="w-[180px]"
+            className="w-full h-full object-contain"
             alt="Logo"
             priority
           />
@@ -158,40 +134,6 @@ const NavSideMenu = ({
           </li>
         </Link>
       ))}
-      <div className="absolute bottom-8">
-        <ul
-          className={`bg-black text-white ${
-            languageToggler
-              ? "w-full h-full p-5"
-              : "w-0 h-0 overflow-hidden p-0 opacity-0"
-          } duration-500`}
-        >
-          <li
-            onClick={() => toggleLanguage({ newLang: "en" })}
-            className="cursor-pointer"
-          >
-            English
-          </li>
-          <li
-            onClick={() => toggleLanguage({ newLang: "ar" })}
-            className="cursor-pointer"
-          >
-            عربي
-          </li>
-        </ul>
-        <button
-          onClick={() => setLanguageToggler(!languageToggler)}
-          className={`flex items-center justify-center gap-2 mt-3 ${
-            isNavOpen ? `opacity-100 duration-700 mt-0` : "opacity-0 mt-3"
-          }`}
-          style={{
-            transitionDelay: isNavOpen ? "1.1s" : "0s",
-          }}
-        >
-          <TfiWorld />{" "}
-          <span>{pathName.startsWith("/ar") ? "لغة" : "Language"}</span>
-        </button>
-      </div>
     </ul>
   );
 };

@@ -13,7 +13,6 @@ const PrivateLayout = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!user || user === undefined) {
-      console.log({ IsUser: true });
       router.push("/auth/login");
     } else {
       // eslint-disable-next-line react-hooks/set-state-in-effect

@@ -1,5 +1,6 @@
 import paper from "@/assets/paper.webp";
 import Image from "next/image";
+import Link from "next/link";
 // import bg1 from "@/assets/banner/banner-2.jpg";
 
 const Banner = () => {
@@ -23,9 +24,11 @@ const Banner = () => {
       <p className="md:font-extralight text-sm md:text-lg">
         Smokin’ Up a Storm, One Bite at a Time
       </p>
-      <button className="cursor-pointer border border-white px-5 py-3">
-        View Full Menu
-      </button>
+      <Link href="/plansAndPackages">
+        <button className="cursor-pointer border border-white px-5 py-3">
+          See Our Plans
+        </button>
+      </Link>
       <Image
         src={paper}
         alt="Paper Design"
