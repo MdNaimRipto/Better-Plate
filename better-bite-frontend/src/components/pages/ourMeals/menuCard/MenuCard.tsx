@@ -5,7 +5,7 @@ const MenuCard = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6 py-10">
       {menuData.map((data, index) => (
-        <div key={index} className="flex flex-col gap-2 p-2 shadow">
+        <div key={index} className="flex flex-col gap-4 rounded-lg p-2 shadow">
           <div className="relative w-full max-h-[280px] object-contain overflow-hidden rounded-[32px] hover:rounded-[48px]">
             <span className="absolute left-4 top-8 -translate-y-1/3 bg-white/90 text-black px-3 py-1 rounded-xl shadow-md text-xs font-semibold">
               {data.calory} kcal
@@ -17,7 +17,7 @@ const MenuCard = () => {
                 // height={500}
                 // width={500}
                 // unoptimized={true}
-                className="w-full h-full object-none hover:scale-110 transition-all duration-500"
+                className="w-full h-full object-contain hover:scale-110 transition-all duration-500"
               />
             </div>
           </div>

@@ -31,8 +31,7 @@ const Navbar = () => {
     };
   }, []);
 
-  const isHomePage =
-    pathname === "/en" || pathname === "/ar" || pathname === "/";
+  const isHomePage = pathname === "/";
 
   return (
     <div className={`absolute z-50 top-0 left-0 w-full`}>

@@ -13,12 +13,11 @@ const DashboardMain = () => {
 
   const orders = data?.data?.data as IOrder[];
 
-  console.log(orders);
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-50 py-10 mt-[80px] px-4">
       <PageToggle />
 
-      <div className="w-full max-w-6xl mt-10 bg-white shadow-md rounded-2xl p-6 border border-lightGray">
+      <div className="w-full container mt-10 bg-white shadow-md rounded-2xl p-6 border border-lightGray">
         <h1 className="text-2xl font-semibold text-center text-primary mb-6">
           All orders
         </h1>
@@ -31,12 +30,20 @@ const DashboardMain = () => {
               <thead>
                 <tr className="bg-lightGray text-primary rounded-lg text-left">
                   <th className="p-3 font-semibold">Transaction ID</th>
-                  <th className="p-3 font-semibold">Plan Type</th>
-                  <th className="p-3 font-semibold">Meals per Day</th>
-                  <th className="p-3 font-semibold">Days per Week</th>
-                  <th className="p-3 font-semibold">Amount</th>
-                  <th className="p-3 font-semibold">Start Date</th>
-                  <th className="p-3 font-semibold">Expire Date</th>
+                  <th className="p-3 font-semibold min-w-[110px]">Plan Type</th>
+                  <th className="p-3 font-semibold min-w-[150px]">
+                    Meals per Day
+                  </th>
+                  <th className="p-3 font-semibold min-w-[150px]">
+                    Days per Week
+                  </th>
+                  <th className="p-3 font-semibold min-w-[110px]">Amount</th>
+                  <th className="p-3 font-semibold min-w-[110px]">
+                    Start Date
+                  </th>
+                  <th className="p-3 font-semibold min-w-[110px]">
+                    Expire Date
+                  </th>
                   <th className="p-3 font-semibold">Status</th>
                 </tr>
               </thead>

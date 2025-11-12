@@ -10,17 +10,10 @@ const NavLogo = () => {
   const pathName = pathname;
 
   return (
-    <Link
-      href={pathName.startsWith("/ar") ? "/ar" : "/en"}
-      className="w-[60%] md:w-[50%] xl:w-[20%] lg:mb-2"
-    >
+    <Link href={"/"} className="w-[100px] md:w-[50%] xl:w-[20%] lg:mb-2">
       <Image
         className=""
-        src={
-          pathName === "/ar" || pathName === "/en" || pathName === "/"
-            ? logoWhite
-            : logoBlack
-        }
+        src={pathName === "/" ? logoWhite : logoBlack}
         alt="Navbar-logo"
         // width={160}
         // height={160}

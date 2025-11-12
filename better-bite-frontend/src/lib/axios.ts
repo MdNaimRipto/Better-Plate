@@ -44,8 +44,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    // console.log("Request failed", error.response.data.message);
-
     const originalRequest = error.config as AxiosRequestConfig & {
       _retry: boolean;
     };

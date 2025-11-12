@@ -1,5 +1,6 @@
 import cuisinesImage from "@/assets/perfectMealPlan/middle-img.webp";
 import Image from "next/image";
+import Link from "next/link";
 
 const PerfectMealPlan = () => {
   interface IPlans {
@@ -157,11 +158,14 @@ const PerfectMealPlan = () => {
               ))}
             </div>
           </div>
-          <div className="flex justify-center mt-12 -mb-6">
+          <Link
+            href="/plansAndPackages"
+            className="flex justify-center mt-12 -mb-6"
+          >
             <button className="border border-primary text-primary cursor-pointer px-6 py-3 hover:text-white hover:bg-primary duration-300">
               View all plans
             </button>
-          </div>
+          </Link>
         </div>
       </div>
     </>

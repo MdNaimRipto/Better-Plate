@@ -6,6 +6,7 @@ import img1 from "@/assets/howItWorks/app.jpg";
 import img2 from "@/assets/howItWorks/chef.jpg";
 import img3 from "@/assets/howItWorks/leanna-myers-YB9VU4necQo-unsplash.jpg";
 import { Autoplay } from "swiper/modules";
+import Link from "next/link";
 
 const HowItWorks = () => {
   const infos = [
@@ -74,11 +75,11 @@ const HowItWorks = () => {
           ))}
         </Swiper>
 
-        <div className="flex justify-center mt-8">
+        <Link href="/our-meals" className="flex justify-center mt-8">
           <button className="border border-primary text-primary cursor-pointer px-6 py-3 hover:text-white hover:bg-primary duration-300">
-            View all plans
+            Check our meals
           </button>
-        </div>
+        </Link>
       </div>
     </div>
   );

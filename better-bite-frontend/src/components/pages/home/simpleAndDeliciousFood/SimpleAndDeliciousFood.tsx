@@ -1,6 +1,7 @@
 import banner from "@/assets/simpleAndDeliciousFood/banner.webp";
-import paper from "@/assets/Common/paper-design.webp";
+import paper from "@/assets/paper.webp";
 import Image from "next/image";
+import Link from "next/link";
 
 const SimpleAndDeliciousFood = () => {
   return (
@@ -21,9 +22,11 @@ const SimpleAndDeliciousFood = () => {
           <h4 className="text-lg md:text-4xl font-semibold text-black mb-3 md:mb-5">
             Flat 20% Discount
           </h4>
-          <button className="bg-primary text-white px-4 py-[10px] text-lg font-semibold md:mt-3 hover:bg-secondary duration-300 scale-75 md:scale-100">
-            View Plans and Packages
-          </button>
+          <Link href="/plansAndPackages">
+            <button className="bg-primary text-white px-4 py-[10px] text-lg font-semibold md:mt-3 hover:bg-secondary duration-300 scale-75 md:scale-100">
+              View Plans and Packages
+            </button>
+          </Link>
         </div>
       </div>
       <Image
